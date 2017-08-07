@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-family: 'Quicksand', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+}
+button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+input:focus, button:focus { outline: none; }
+
+h1 {
+  text-align: center;
+}
+
+.to-do-app {
+  width: 85%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  /* margin: 20pt; */
+}
+.to-do-app {
+  box-shadow: 3pt 3pt 0pt rgb(70, 70, 70),
+              6pt 6pt 0pt rgb(40, 40, 40),
+              9pt 9pt 0pt rgb(10, 10, 10);
+}
+.list-form {
+  background-color: #555;
+  font-size: 0;
+}
+.list-form > input {
+  width: calc(100% - 40pt);
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 15pt;
+  height: 40pt;
+  line-height: 40pt;
+  padding-left: 10pt;
+  font-weight: 300;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #bbb;
+  border: none;
+  transition: .25s;
+}
+.list-form > input:focus {
+  background-color: #eee;
+  outline: none;
+  transition: .25s;
+}
+.list-form > button {
+  vertical-align: top;
+  width: 40pt;
+  font-size: 10pt;
+  height: 40pt;
+  line-height: 40pt;
+  display: inline-block;
+  background-color: #888;
+  color: white;
+}
+.list-form > button:hover {
+  background-color: #aaa;
+  color: #333;
+  transition: .25s;
+}
+.list-form > button > img {
+  width: 25pt;
+  height: 25pt;
+  vertical-align: middle;
+}
+.list-group {
+  background-color: #555;
+  box-shadow: inset 0pt 5pt 10pt #444;
+  position: relative;
+}
+.list-group > .list-item {
+  box-sizing: border-box;
+  padding: 0 10pt;
+  line-height: 40pt;
+  font-weight: 300;
+  transition: .25s;
+  animation: fadeIn .25s;
+}
+.list-group > .list-item:hover {
+  background-color: #666;
+  transition: .25s;
+}
+.list-group > .list-item > .list-item-control {
+  display: inline-block;
+  opacity: 0;
+  position: absolute;
+  right: 20pt;
+  transition: .25s;
+}
+.list-group > .list-item:hover > .list-item-control {
+  opacity: 1;
+  right: 10pt;
+  transition: .25s;
+}
+.list-item-control > label > svg {
+  height: 15pt;
+  width: 15pt;
+  vertical-align: middle;
+  transition: .25s;
+}
+.list-item > input[type="checkbox"] {
+  position: absolute;
+  top: -1000px;
+}
+.list-item > input[type="checkbox"]:checked + span {
+  color: #999;
+  transition: .25s;
+}
+.list-item > input[type="checkbox"]:checked ~ .list-item-control > label > svg path {
+  fill: #79D1C3;
+  transition: .25s;
+}
+
+@keyframes fadeIn {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 40pt;
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .wrapper:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .inner-wrapper {
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+  }
+}

@@ -8,16 +8,18 @@ export default class ListForm extends React.Component {
 
   handleCreateListItemEvent(event) {
     event.preventDefault()
-    const textarea = this.refs['item-content']
-    this.props.createListItem(textarea.value)
-    textarea.value = ''
+    const input = this.refs['item-content']
+    this.props.createListItem(input.value)
+    input.value = ''
   }
 
   render() {
     return (
-      <div className="list-footer">
-        <textarea ref="item-content" id="item-content" cols="30" rows="10"></textarea><br/>
-        <button onClick={this.handleCreateListItemEvent}>Create List Item</button>
+      <div className="list-form">
+        <input ref="item-content" id="item-content" />
+        <button onClick={this.handleCreateListItemEvent}>
+          <img src="/icon/plus-sign-light.png" alt="plus-sign"/>
+        </button>
       </div>
     )
   }

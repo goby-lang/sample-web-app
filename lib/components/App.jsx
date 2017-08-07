@@ -56,7 +56,9 @@ export default class ToDoList extends React.Component {
     return (
       <div className="to-do-app">
         <ListForm createListItem={this.handleCreateListItem}/>
-        {renderListItems}
+        <div className="list-group">
+          {renderListItems}
+        </div>
       </div>
     )
   }
