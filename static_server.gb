@@ -3,10 +3,13 @@ require "file"
 # require_relative "./lib/xxx.gb"
 
 server = Net::SimpleServer.new("3000")
-server.file_root = './public'
+
+server.static("/icon/", "./public/icon/")
+server.static("/js/", "./public/js/")
+server.static("/css/", "./public/css/")
 
 server.get("/") do |req, res|
-  file = File.new("index.html", "r", 0755)
+  file = File.new("./public/index.html")
   content = file.read
   res.status = 200
   res.body = content
