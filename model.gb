@@ -3,23 +3,56 @@ require "db"
 USER_NAME = 'ENTER YOUR USER NAME'
 
 class ListItem
-  @db = DB.open("postgres", "user=#{USER_NAME} dbname=goby_test sslmode=disable")
+  attr_reader :id, :title, :checked
+  
+  def initialize(params)
+    @id      ||= params[:id]
+    @title   ||= params[:title]
+    @checked ||= params[:checked] || 0
+  end
+
+  def destroy
+    ListItem.db.exec('DELETE FROM list_items WHERE id = $1', @id)
+  end
+
+  def self.db
+    @db ||= DB.open("postgres", "user=%s dbname=goby_test sslmode=disable", USER_NAME)
+  end
+
+  def self.all
+    self.db.query("SELECT * FROM list_items")
+  end
+
+  def self.find(id)
+    self.db.query("SELECT * FROM list_items WHERE id = $1", id)
+  end
 
   def self.create(params = {})
-    validates params
-    item    = params[:item]
-    checked = params[:checked] || 0
-    @db.exec("INSERT INTO list_items (title, checked) VALUES ('#{item}', 0)")
+    validates(params) do |result|
+      if result[:error]
+        return result
+      else
+        title   = params[:title]
+        checked = params[:checked] || 0
+        resultID = self.db.exec(String.fmt("INSERT INTO list_items (title, checked) VALUES ('%s', %s)", title, checked))
+        new({ id: resultID, title: title, checked: checked })
+      end
+    end
+  end
+
+  def self.validates(params)
+    if params[:title].nil? || params[:title].empty?
+      yield({ error: 'Title cannot be empty' })
+    else
+      yield({ error: nil })
+    end
   end
 
   private
-
-  def validates(params)
-  end
 end
 
-# $db.exec("INSERT INTO users (name, age) VALUES ('Stan', 23)")
-# results = $db.query("SELECT * FROM users")
+# db.exec("INSERT INTO users (name, age) VALUES ('Stan', 23)")
+# results = db.query("SELECT * FROM users")
 # results.count
 
 # puts results

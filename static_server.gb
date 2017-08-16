@@ -1,6 +1,7 @@
 require "net/simple_server"
 require "file"
-# require_relative "./lib/xxx.gb"
+require "json"
+require_relative "./model"
 
 server = Net::SimpleServer.new("3000")
 
@@ -16,16 +17,17 @@ server.get("/") do |req, res|
   res.set_header("Content-Type", "text/html; charset=utf-8")
 end
 
-server.get("/test_get") do |req, res|
+server.post("/items") do |req, res|
   res.status = 200
-  res.body = 'Hello World' # content
-  res.set_header("Content-Type", "text/plain")
+  res.body = { result: ListItem.all }.to_json
+  res.set_header("Content-Type", "application/json; charset=utf-8")
 end
 
-# puts "Post"
-server.post("/test_post_json") do |req, res|
+server.post("/items/create") do |req, res|
+  params = JSON.parse req.body
+  listItem = ListItem.create(params)
   res.status = 200
-  res.body = { message: "Ajax Success" }.to_json
+  res.body = { title: listItem.title, checked: listItem.checked, id: listItem.id }.to_json
   res.set_header("Content-Type", "application/json; charset=utf-8")
 end
 

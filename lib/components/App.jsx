@@ -1,6 +1,8 @@
 import React from 'react'
 import ListItem from './app/ListItem.jsx'
 import ListForm from './app/ListForm.jsx'
+import $ from 'jquery'
+import axios from 'axios'
 
 export default class ToDoList extends React.Component {
   constructor(props) {
@@ -17,6 +19,16 @@ export default class ToDoList extends React.Component {
     this.handleCreateListItem = this.handleCreateListItem.bind(this);
   }
 
+  componentDidMount() {
+    axios.post('items').then((response) => {
+      let items = [];
+      for (let item of response.data.result) {
+        items.push({ key: item.id, content: item.title, checked: (item.checked === 0 ? false : true) })
+      }
+      this.setState({ listItems: items });
+    })
+  }
+
   handleCreateListItem(content) {
     this.action('CREATE_LIST_ITEM', content)
   }
@@ -26,9 +38,11 @@ export default class ToDoList extends React.Component {
       case this.events.CREATE_LIST_ITEM:
         const content = params[0]
         const listItems = this.state.listItems
-        const nextRecordId = listItems[listItems.length - 1].key + 1
-        listItems.push({ key: nextRecordId, content: content, checked: false })
-        this.setState({ listItems: listItems })
+        axios.post('items/create', { title: content, checked: 0 }).then((response) => {
+          let { id: id, title: content, checked: checked } = response.data
+          listItems.push({ key: id, content: content, checked: (checked === 0 ? false : true) })        
+          this.setState({ listItems: listItems })
+        })
         break
 
       case this.events.EDIT_LIST_ITEM:
