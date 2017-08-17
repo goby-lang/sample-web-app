@@ -5,7 +5,7 @@
 ## Usage
 
 ```
-$ goby static_server.gb
+$ goby server.gb
 ```
 
 Then open `http://localhost:3000`
