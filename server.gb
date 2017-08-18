@@ -1,8 +1,7 @@
 require "net/simple_server"
 require "file"
 require "json"
-require_relative "./model"
-
+require_relative "model"
 server = Net::SimpleServer.new("3000")
 
 server.static("/icon/", "./public/icon/")
