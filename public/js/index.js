@@ -33405,35 +33405,10 @@ var ToDoList = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios2.default.get('items').then(function (response) {
-        var items = [];
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = response.data.result[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
-            items.push({ key: item.id, content: item.title, checked: item.checked });
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-
-        _this2.setState({ listItems: items });
-      });
+      this.getAllItems();
+      setInterval(function () {
+        return _this2.getAllItems();
+      }, 5000);
     }
   }, {
     key: 'handleCreateListItem',
@@ -33495,9 +33470,44 @@ var ToDoList = function (_React$Component) {
       }
     }
   }, {
+    key: 'getAllItems',
+    value: function getAllItems() {
+      var _this4 = this;
+
+      _axios2.default.get('items').then(function (response) {
+        var items = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = response.data.result[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            items.push({ key: item.id, content: item.title, checked: item.checked });
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        _this4.setState({ listItems: items });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var renderListItems = this.state.listItems.map(function (item) {
         return _react2.default.createElement(
@@ -33505,7 +33515,7 @@ var ToDoList = function (_React$Component) {
           {
             key: item.key, id: item.key,
             checked: item.checked,
-            checkEvent: _this4.handleCheckEvent
+            checkEvent: _this5.handleCheckEvent
           },
           item.content
         );

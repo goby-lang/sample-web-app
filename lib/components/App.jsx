@@ -21,13 +21,8 @@ export default class ToDoList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('items').then((response) => {
-      let items = []
-      for (let item of response.data.result) {
-        items.push({ key: item.id, content: item.title, checked: item.checked })
-      }
-      this.setState({ listItems: items })
-    })
+    this.getAllItems()
+    setInterval(() => this.getAllItems(), 5000)
   }
 
   handleCreateListItem(content) {
@@ -77,6 +72,16 @@ export default class ToDoList extends React.Component {
       default:
         console.error(`Currently there are no such event called ${event}`)
     }
+  }
+
+  getAllItems() {
+    axios.get('items').then((response) => {
+      let items = []
+      for (let item of response.data.result) {
+        items.push({ key: item.id, content: item.title, checked: item.checked })
+      }
+      this.setState({ listItems: items })
+    })
   }
 
   render() {
