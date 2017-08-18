@@ -2,8 +2,9 @@ import React from 'react'
 import ListItem from './app/ListItem.jsx'
 import ListForm from './app/ListForm.jsx'
 import ListModal from './app/ListModal.jsx'
-// import $ from 'jquery'
 import axios from 'axios'
+
+var errorTimeoutID = null
 
 export default class ToDoList extends React.Component {
   constructor(props) {
@@ -55,8 +56,13 @@ export default class ToDoList extends React.Component {
         const content = params[0]
         axios.post('items', { title: content, checked: 0 }).then((response) => {
           if (response.data.error) {
-            console.log('error')
-            /* TODO: Pop out error with empty title */
+            var input = this.refs.form.refs['item-content']
+            input.setAttribute('placeholder', response.data.error)
+            if (errorTimeoutID) window.clearTimeout(errorTimeoutID)
+            errorTimeoutID = setTimeout(() => {
+              input.setAttribute('placeholder', '')
+              errorTimeoutID = null
+            }, 3000)
           } else {
             let { id: id, title: content, checked: checked } = response.data
             listItems.push({ key: id, content: content, checked: checked })        
@@ -133,7 +139,10 @@ export default class ToDoList extends React.Component {
 
     return (
       <div className="to-do-app">
-        <ListForm createListItem={this.handleCreateListItem}/>
+        <ListForm
+          createListItem={this.handleCreateListItem}
+          ref="form"
+        />
         <ListModal
           ref="modal"
           modalId={this.state.modal ? this.state.modal.id : 0}

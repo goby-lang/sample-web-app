@@ -23117,8 +23117,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import $ from 'jquery'
 
+var errorTimeoutID = null;
 
 var ToDoList = function (_React$Component) {
   _inherits(ToDoList, _React$Component);
@@ -23186,8 +23186,13 @@ var ToDoList = function (_React$Component) {
           var content = arguments.length <= 1 ? undefined : arguments[1];
           _axios2.default.post('items', { title: content, checked: 0 }).then(function (response) {
             if (response.data.error) {
-              console.log('error');
-              /* TODO: Pop out error with empty title */
+              var input = _this3.refs.form.refs['item-content'];
+              input.setAttribute('placeholder', response.data.error);
+              if (errorTimeoutID) window.clearTimeout(errorTimeoutID);
+              errorTimeoutID = setTimeout(function () {
+                input.setAttribute('placeholder', '');
+                errorTimeoutID = null;
+              }, 3000);
             } else {
               var _response$data = response.data,
                   _id = _response$data.id,
@@ -23304,7 +23309,10 @@ var ToDoList = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'to-do-app' },
-        _react2.default.createElement(_ListForm2.default, { createListItem: this.handleCreateListItem }),
+        _react2.default.createElement(_ListForm2.default, {
+          createListItem: this.handleCreateListItem,
+          ref: 'form'
+        }),
         _react2.default.createElement(_ListModal2.default, {
           ref: 'modal',
           modalId: this.state.modal ? this.state.modal.id : 0,
