@@ -1,6 +1,13 @@
 require "db"
 
-USER_NAME = 'ENTER YOUR USER NAME'
+USER_NAME = 'postgres'
+PG = DB.open("postgres", String.fmt("user=%s dbname=goby_test sslmode=disable", USER_NAME))
+
+PG.run("create table if not exists list_items (
+  id   serial primary key,
+  title varchar(40),
+  checked boolean
+)")
 
 class ListItem
   attr_reader :id, :title, :checked
@@ -16,7 +23,7 @@ class ListItem
   end
 
   def self.db
-    @db ||= DB.open("postgres", "user=%s dbname=goby_test sslmode=disable", USER_NAME)
+    PG
   end
 
   def self.all
@@ -33,7 +40,7 @@ class ListItem
         return result
       else
         title   = params[:title]
-        checked = params[:checked] || 0
+        checked = params[:checked].to_i == 1
         resultID = self.db.exec(String.fmt("INSERT INTO list_items (title, checked) VALUES ('%s', %s)", title, checked))
         new({ id: resultID, title: title, checked: checked })
       end
@@ -47,8 +54,6 @@ class ListItem
       yield({ error: nil })
     end
   end
-
-  private
 end
 
 # db.exec("INSERT INTO users (name, age) VALUES ('Stan', 23)")
