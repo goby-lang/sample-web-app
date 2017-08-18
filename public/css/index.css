@@ -111,6 +111,38 @@ h1 {
   vertical-align: middle;
   transition: .25s;
 }
+.list-item-control > button#delete-btn {
+  border: none;
+  width: 15pt;
+  height: 15pt;
+  vertical-align: middle;
+  margin-left: 10pt;
+  background-color: transparent;
+  position: relative;
+}
+.list-item-control > button#delete-btn > span {
+  position: absolute;
+  width: 15pt;
+  height: 2pt;
+  border-radius: 1pt;
+  background-color: #333;
+  top: 1.414pt;
+  transition: .25s;
+}
+.list-item-control > button#delete-btn:hover > span {
+  background-color: #ff6a80;
+  transition: .25s;
+}
+.list-item-control > button#delete-btn > span:first-child {
+  left: 0;
+  transform-origin: left top;
+  transform: rotate(45deg);
+}
+.list-item-control > button#delete-btn > span:last-child {
+  right: 6pt;
+  transform-origin: right top;
+  transform: rotate(-45deg);
+}
 .list-item > input[type="checkbox"] {
   position: absolute;
   top: -1000px;
@@ -123,6 +155,67 @@ h1 {
   fill: #79D1C3;
   transition: .25s;
 }
+.list-modal-wrapper {
+  opacity: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: .25s;
+  pointer-events: none;
+}
+.list-modal-wrapper.open {
+  transition: .25s;
+  opacity: 1;
+  pointer-events: auto;
+}
+.list-modal-wrapper > .list-modal {
+  text-align: center;
+  position: absolute;
+  width: 400pt;
+  height: 175pt;
+  background-color:#555;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group {
+  position: absolute;
+  width: 400pt;
+  height: 50pt;
+  bottom: 0;
+  padding-top: 10pt;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button {
+  vertical-align: bottom;
+  width: 75pt;
+  height: 30pt;
+  line-height: 30pt;
+  font-size: 15pt;
+  border: none;
+  color: white;
+  transition: .25s;
+  margin: 0 5pt;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm {
+  background-color: #79D1C3;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm:hover {
+  background-color: #67C0A1;
+  transition: .25s;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel {
+  background-color: #ff6a80;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel:hover {
+  background-color: #dd4960;
+  transition: .25s;
+}
 
 @keyframes fadeIn {
   0% {
@@ -132,6 +225,24 @@ h1 {
   100% {
     height: 40pt;
     opacity: 1;
+  }
+}
+
+@keyframes rotateClockwise {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateCounterClockwise {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
 

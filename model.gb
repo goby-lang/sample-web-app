@@ -13,12 +13,13 @@ PG.run("create table if not exists list_items (
 )")
 
 class ListItem
-  attr_reader :id, :title, :checked
-  
+  attr_reader :id, :title, :checked, :error
+
   def initialize(params)
     @id      ||= params[:id]
     @title   ||= params[:title]
     @checked ||= params[:checked]
+    @error   ||= params[:error]
   end
 
   def check
@@ -33,6 +34,10 @@ class ListItem
 
   def destroy
     ListItem.db.exec('DELETE FROM list_items WHERE id = $1', @id)
+  end
+  
+  def valid?
+    @error.nil?
   end
 
   def self.db
@@ -50,13 +55,13 @@ class ListItem
 
   def self.create(params = {})
     validates(params) do |result|
-      if result[:error]
-        return result
-      else
+      if result[:error].nil?
         title   = params[:title]
         checked = params[:checked].to_i == 1
         resultID = self.db.exec(String.fmt("INSERT INTO list_items (title, checked) VALUES ('%s', %s)", title, checked))
         new({ id: resultID, title: title, checked: checked })
+      else
+        new({ error: result[:error] })
       end
     end
   end

@@ -1,7 +1,8 @@
 import React from 'react'
 import ListItem from './app/ListItem.jsx'
 import ListForm from './app/ListForm.jsx'
-import $ from 'jquery'
+import ListModal from './app/ListModal.jsx'
+// import $ from 'jquery'
 import axios from 'axios'
 
 export default class ToDoList extends React.Component {
@@ -11,13 +12,16 @@ export default class ToDoList extends React.Component {
       CREATE_LIST_ITEM: 1,
       CHECK_LIST_ITEM: 2,
       UNCHECK_LIST_ITEM: 3,
-      DELETE_LIST_ITEM: 4
+      OPEN_MODAL: 4,
+      DELETE_LIST_ITEM: 5
     }
     this.state = {
       listItems: [] //{ key: 1, content: 'Hello, welcome to Goby Lang', checked: false }
     }
     this.handleCreateListItem = this.handleCreateListItem.bind(this)
     this.handleCheckEvent = this.handleCheckEvent.bind(this)
+    this.handleOpenModal = this.handleOpenModal.bind(this)
+    this.handleDeleteItem = this.handleDeleteItem.bind(this)
   }
 
   componentDidMount() {
@@ -36,21 +40,34 @@ export default class ToDoList extends React.Component {
     )
   }
 
+  handleOpenModal(id) {
+    this.action('OPEN_MODAL', id)
+  }
+
+  handleDeleteItem(id) {
+    this.action('DELETE_LIST_ITEM', id)
+  }
+
   action(event, ...params) {
     const listItems = this.state.listItems
     switch(this.events[event]) {
       case this.events.CREATE_LIST_ITEM:
         const content = params[0]
         axios.post('items', { title: content, checked: 0 }).then((response) => {
-          let { id: id, title: content, checked: checked } = response.data
-          listItems.push({ key: id, content: content, checked: checked })        
-          this.setState({ listItems: listItems })
+          if (response.data.error) {
+            console.log('error')
+            /* TODO: Pop out error with empty title */
+          } else {
+            let { id: id, title: content, checked: checked } = response.data
+            listItems.push({ key: id, content: content, checked: checked })        
+            this.setState({ listItems: listItems })
+          }
         })
         break
 
       case this.events.CHECK_LIST_ITEM:
         var id = params[0]
-        var listItem = listItems.filter((item) => item.key === id )[0]
+        var listItem = this.getItem(id)
         axios.put('item/check', { id: id }).then((response) => {
           listItems[listItems.indexOf(listItem)].checked = true
           this.setState({ listItems: listItems })
@@ -59,19 +76,39 @@ export default class ToDoList extends React.Component {
 
       case this.events.UNCHECK_LIST_ITEM:
         var id = params[0]
-        var listItem = listItems.filter((item) => item.key === id )[0]
+        var listItem = this.getItem(id)
         axios.put('item/uncheck', { id: id }).then((response) => {
           listItems[listItems.indexOf(listItem)].checked = false
           this.setState({ listItems: listItems })
         })
         break
 
+      case this.events.OPEN_MODAL:
+        var id = params[0]
+        var listItem = this.getItem(id)
+        this.setState({ modal: { id: id, content: listItem.content } })
+        this.refs.modal.open()
+        break
+
       case this.events.DELETE_LIST_ITEM:
+        var id = params[0]
+        var listItem = this.getItem(id)
+        // TODO: Fix the DELETE Action
+        // axios.delete('item', { id: id }).then((response) => {
+        axios.post('item/delete', { id: id }).then((response) => {
+          listItems.splice(listItems.indexOf(listItem), 1)
+          this.refs.modal.close()
+          this.setState({ listItems: listItems })
+        })
         break
 
       default:
         console.error(`Currently there are no such event called ${event}`)
     }
+  }
+
+  getItem(id) {
+    return this.state.listItems.filter((item) => item.key === id )[0]
   }
 
   getAllItems() {
@@ -90,12 +127,19 @@ export default class ToDoList extends React.Component {
         key={item.key} id={item.key}
         checked={item.checked}
         checkEvent={this.handleCheckEvent}
+        openModal={this.handleOpenModal}
       >{item.content}</ListItem>
     )
 
     return (
       <div className="to-do-app">
         <ListForm createListItem={this.handleCreateListItem}/>
+        <ListModal
+          ref="modal"
+          modalId={this.state.modal ? this.state.modal.id : 0}
+          modalContent={this.state.modal ? this.state.modal.content : ''}
+          confirmDelete={this.handleDeleteItem}
+        />
         <div className="list-group">
           {renderListItems}
         </div>

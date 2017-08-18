@@ -4,6 +4,7 @@ export default class ListItem extends React.Component {
   constructor(props) {
     super(props)
     this.handleItemCheck = this.handleItemCheck.bind(this)
+    this.handleDeleteItemClick = this.handleDeleteItemClick.bind(this)
   }
 
   handleItemCheck(event) {
@@ -11,6 +12,10 @@ export default class ListItem extends React.Component {
       id: this.props.id,
       check: this.props.checked
     })
+  }
+
+  handleDeleteItemClick(event) {
+    this.props.openModal(this.props.id)
   }
 
   render() {
@@ -32,6 +37,11 @@ export default class ListItem extends React.Component {
             </g>
             </svg>
           </label>
+
+          <button onClick={this.handleDeleteItemClick} id="delete-btn">
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     )
