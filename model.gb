@@ -1,6 +1,6 @@
 require "db"
 
-USER_NAME = 'postgres'
+USER_NAME = 'MaxwellAlexius'
 PG = DB.open("postgres", String.fmt("user=%s dbname=goby_test sslmode=disable", USER_NAME))
 
 PG.run("create table if not exists list_items (
@@ -15,7 +15,17 @@ class ListItem
   def initialize(params)
     @id      ||= params[:id]
     @title   ||= params[:title]
-    @checked ||= params[:checked] || 0
+    @checked ||= params[:checked]
+  end
+
+  def check
+    ListItem.db.exec('UPDATE list_items SET checked = true WHERE id = $1', @id)
+    @checked = true
+  end
+
+  def uncheck
+    ListItem.db.exec('UPDATE list_items SET checked = false WHERE id = $1', @id)
+    @checked = false
   end
 
   def destroy
@@ -27,11 +37,12 @@ class ListItem
   end
 
   def self.all
-    self.db.query("SELECT * FROM list_items")
+    self.db.query("SELECT * FROM list_items ORDER BY id ASC")
   end
 
   def self.find(id)
-    self.db.query("SELECT * FROM list_items WHERE id = $1", id)
+    result = self.db.query("SELECT * FROM list_items WHERE id = $1", id).first
+    new({ id: result[:id], title: result[:title], checked: result[:checked] })
   end
 
   def self.create(params = {})

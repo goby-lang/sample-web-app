@@ -9,23 +9,24 @@ export default class ToDoList extends React.Component {
     super(props)
     this.events = {
       CREATE_LIST_ITEM: 1,
-      EDIT_LIST_ITEM: 2,
-      UPDATE_LIST_ITEM: 3,
+      CHECK_LIST_ITEM: 2,
+      UNCHECK_LIST_ITEM: 3,
       DELETE_LIST_ITEM: 4
-    };
+    }
     this.state = {
-      listItems: [{ key: 1, content: 'Hello, welcome to Goby Lang', checked: false }]
-    };
-    this.handleCreateListItem = this.handleCreateListItem.bind(this);
+      listItems: [] //{ key: 1, content: 'Hello, welcome to Goby Lang', checked: false }
+    }
+    this.handleCreateListItem = this.handleCreateListItem.bind(this)
+    this.handleCheckEvent = this.handleCheckEvent.bind(this)
   }
 
   componentDidMount() {
-    axios.post('items').then((response) => {
-      let items = [];
+    axios.get('items').then((response) => {
+      let items = []
       for (let item of response.data.result) {
-        items.push({ key: item.id, content: item.title, checked: (item.checked === 0 ? false : true) })
+        items.push({ key: item.id, content: item.title, checked: item.checked })
       }
-      this.setState({ listItems: items });
+      this.setState({ listItems: items })
     })
   }
 
@@ -33,22 +34,41 @@ export default class ToDoList extends React.Component {
     this.action('CREATE_LIST_ITEM', content)
   }
 
+  handleCheckEvent(status) {
+    this.action(
+      status.check ? 'UNCHECK_LIST_ITEM' : 'CHECK_LIST_ITEM',
+      status.id
+    )
+  }
+
   action(event, ...params) {
+    const listItems = this.state.listItems
     switch(this.events[event]) {
       case this.events.CREATE_LIST_ITEM:
         const content = params[0]
-        const listItems = this.state.listItems
-        axios.post('items/create', { title: content, checked: 0 }).then((response) => {
+        axios.post('items', { title: content, checked: 0 }).then((response) => {
           let { id: id, title: content, checked: checked } = response.data
-          listItems.push({ key: id, content: content, checked: (checked === 0 ? false : true) })        
+          listItems.push({ key: id, content: content, checked: checked })        
           this.setState({ listItems: listItems })
         })
         break
 
-      case this.events.EDIT_LIST_ITEM:
+      case this.events.CHECK_LIST_ITEM:
+        var id = params[0]
+        var listItem = listItems.filter((item) => item.key === id )[0]
+        axios.put('item/check', { id: id }).then((response) => {
+          listItems[listItems.indexOf(listItem)].checked = true
+          this.setState({ listItems: listItems })
+        })
         break
 
-      case this.events.UPDATE_LIST_ITEM:
+      case this.events.UNCHECK_LIST_ITEM:
+        var id = params[0]
+        var listItem = listItems.filter((item) => item.key === id )[0]
+        axios.put('item/uncheck', { id: id }).then((response) => {
+          listItems[listItems.indexOf(listItem)].checked = false
+          this.setState({ listItems: listItems })
+        })
         break
 
       case this.events.DELETE_LIST_ITEM:
@@ -64,6 +84,7 @@ export default class ToDoList extends React.Component {
       <ListItem
         key={item.key} id={item.key}
         checked={item.checked}
+        checkEvent={this.handleCheckEvent}
       >{item.content}</ListItem>
     )
 

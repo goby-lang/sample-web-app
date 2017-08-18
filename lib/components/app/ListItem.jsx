@@ -3,18 +3,26 @@ import React from 'react'
 export default class ListItem extends React.Component {
   constructor(props) {
     super(props)
-    this.handleItemChange = this.handleItemChange.bind(this)
+    this.handleItemCheck = this.handleItemCheck.bind(this)
   }
 
-  handleItemChange() {
-    /* List item checked event */
+  handleItemCheck(event) {
+    this.props.checkEvent({
+      id: this.props.id,
+      check: this.props.checked
+    })
   }
 
   render() {
     const labelId = `list-item-${this.props.id}`
     return (
       <div className="list-item">
-        <input type="checkbox" id={labelId} />
+        <input
+          type="checkbox"
+          id={labelId}
+          checked={this.props.checked}
+          onChange={this.handleItemCheck}
+        />
         <span>{this.props.children}</span>
         <div className="list-item-control">
           <label htmlFor={labelId}>
