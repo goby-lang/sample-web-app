@@ -32,10 +32,14 @@ class ListItem
     @checked = false
   end
 
+  def update_title(title)
+    ListItem.db.exec('UPDATE list_items SET title = $1 WHERE id = $2', title, @id)
+  end
+
   def destroy
     ListItem.db.exec('DELETE FROM list_items WHERE id = $1', @id)
   end
-  
+
   def valid?
     @error.nil?
   end

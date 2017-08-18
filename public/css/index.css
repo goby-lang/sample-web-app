@@ -111,6 +111,9 @@ h1 {
   vertical-align: middle;
   transition: .25s;
 }
+.list-item-control > label + label{
+  margin-left: 10pt;
+}
 .list-item-control > button#delete-btn {
   border: none;
   width: 15pt;
@@ -147,13 +150,43 @@ h1 {
   position: absolute;
   top: -1000px;
 }
-.list-item > input[type="checkbox"]:checked + span {
+.list-item > input[type="checkbox"]:checked.list-item-check ~ span {
   color: #999;
   transition: .25s;
 }
-.list-item > input[type="checkbox"]:checked ~ .list-item-control > label > svg path {
+.list-item > input[type="checkbox"]:checked.list-item-check ~ .list-item-control > label > svg#list-item-check-icon path,
+.list-item > input[type="checkbox"]:checked.list-item-edit ~ .list-item-control > label > svg#list-item-edit-icon path {
   fill: #79D1C3;
   transition: .25s;
+}
+.list-item > input[type="checkbox"]:checked.list-item-edit ~ span#edit-form,
+.list-item > span#content {
+  display: inline;
+}
+.list-item > input[type="checkbox"]:checked.list-item-edit ~ span#content,
+.list-item > input[type="checkbox"]:checked.list-item-edit ~ .list-item-control > label#check-item,
+.list-item > input[type="checkbox"]:checked.list-item-edit ~ .list-item-control > button#delete-btn,
+.list-item > input[type="checkbox"]:checked.list-item-edit ~ span#content,
+.list-item > span#edit-form {
+  display: none;
+}
+.list-item > span#edit-form > input {
+  box-sizing: border-box;
+  width: calc(100% - 95pt);
+  height: 24pt;
+  padding-left: 4pt;
+  font-size: 12pt;
+  vertical-align: middle;
+  color: white;
+  background-color: #777;
+  border: none;
+  margin: 0;
+}
+.list-item > span#edit-form > button {
+  width: 35pt;
+  height: 24pt;
+  line-height: 24pt;
+  color: white
 }
 .list-modal-wrapper {
   opacity: 0;
@@ -202,17 +235,21 @@ h1 {
   transition: .25s;
   margin: 0 5pt;
 }
-.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm {
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm,
+.list-item > span#edit-form > button#confirm {
   background-color: #79D1C3;
 }
-.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm:hover {
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm:hover,
+.list-item > span#edit-form > button#confirm:hover {
   background-color: #67C0A1;
   transition: .25s;
 }
-.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel {
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel,
+.list-item > span#edit-form > button#cancel {
   background-color: #ff6a80;
 }
-.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel:hover {
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel:hover,
+.list-item > span#edit-form > button#cancel:hover {
   background-color: #dd4960;
   transition: .25s;
 }
@@ -253,7 +290,7 @@ h1 {
 }
 @media screen and (min-width: 768px) {
   .wrapper {
-    max-width: 980px;
+    max-width: 1080px;
     margin: 0 auto;
   }
   .wrapper:after {

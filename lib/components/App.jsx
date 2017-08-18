@@ -14,14 +14,14 @@ export default class ToDoList extends React.Component {
       CHECK_LIST_ITEM: 2,
       UNCHECK_LIST_ITEM: 3,
       OPEN_MODAL: 4,
-      DELETE_LIST_ITEM: 5
+      EDIT_LIST_ITEM: 5, 
+      DELETE_LIST_ITEM: 6
     }
-    this.state = {
-      listItems: [] //{ key: 1, content: 'Hello, welcome to Goby Lang', checked: false }
-    }
+    this.state = { listItems: [] }
     this.handleCreateListItem = this.handleCreateListItem.bind(this)
     this.handleCheckEvent = this.handleCheckEvent.bind(this)
     this.handleOpenModal = this.handleOpenModal.bind(this)
+    this.handleEditContent = this.handleEditContent.bind(this)
     this.handleDeleteItem = this.handleDeleteItem.bind(this)
   }
 
@@ -49,6 +49,10 @@ export default class ToDoList extends React.Component {
     this.action('DELETE_LIST_ITEM', id)
   }
 
+  handleEditContent(params) {
+    this.action('EDIT_LIST_ITEM', params.id, params.content)
+  }
+
   action(event, ...params) {
     const listItems = this.state.listItems
     switch(this.events[event]) {
@@ -74,7 +78,7 @@ export default class ToDoList extends React.Component {
       case this.events.CHECK_LIST_ITEM:
         var id = params[0]
         var listItem = this.getItem(id)
-        axios.put('items/'+ id + '/check').then((response) => {
+        axios.put(`items/${id}/check`).then((response) => {
           listItems[listItems.indexOf(listItem)].checked = true
           this.setState({ listItems: listItems })
         })
@@ -83,7 +87,7 @@ export default class ToDoList extends React.Component {
       case this.events.UNCHECK_LIST_ITEM:
         var id = params[0]
         var listItem = this.getItem(id)
-        axios.put('items/' + id + '/uncheck').then((response) => {
+        axios.put(`items/${id}/uncheck`, { id: id }).then((response) => {
           listItems[listItems.indexOf(listItem)].checked = false
           this.setState({ listItems: listItems })
         })
@@ -96,10 +100,21 @@ export default class ToDoList extends React.Component {
         this.refs.modal.open()
         break
 
+      case this.events.EDIT_LIST_ITEM:
+        var id = params[0]
+        var content = params[1]
+        var listItem = this.getItem(id)
+        axios.put(`items/${id}`, { title: content }).then((response) => {
+          listItems[listItems.indexOf(listItem)].content = content
+          this.setState({ listItems: listItems })
+          this.refs[`list-item-${id}`].closeEditForm()
+        })
+        break
+
       case this.events.DELETE_LIST_ITEM:
         var id = params[0]
         var listItem = this.getItem(id)
-        axios.delete('items/' + id).then((response) => {
+        axios.delete(`items/${id}`).then((response) => {
           listItems.splice(listItems.indexOf(listItem), 1)
           this.refs.modal.close()
           this.setState({ listItems: listItems })
@@ -128,10 +143,11 @@ export default class ToDoList extends React.Component {
   render() {
     const renderListItems = this.state.listItems.map((item) =>
       <ListItem
-        key={item.key} id={item.key}
+        key={item.key} id={item.key} ref={`list-item-${item.key}`}
         checked={item.checked}
         checkEvent={this.handleCheckEvent}
         openModal={this.handleOpenModal}
+        editContent={this.handleEditContent}
       >{item.content}</ListItem>
     )
 

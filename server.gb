@@ -36,6 +36,13 @@ server.post('/items') do |req, res|
   res.set_header("Content-Type", "application/json; charset=utf-8")
 end
 
+# PUT Update Action
+server.put('/items/{id:[0-9]+}') do |req, res|
+  title = JSON.parse(req.body)[:title]
+  ListItem.find(req.params[:id]).update_title(title)
+  res.status = 200
+end
+
 # PUT Check Action
 server.put('/items/{id:[0-9]+}/check') do |req, res|
   ListItem.find(req.params[:id]).check
@@ -49,8 +56,6 @@ server.put('/items/{id:[0-9]+}/uncheck') do |req, res|
 end
 
 # DELETE Delete Action
-# TODO: Fix the DELETE Action
-# server.delete('/item') do |req, res|
 server.delete('/items/{id:[0-9]+}') do |req, res|
   ListItem.find(req.params["id"]).destroy
   res.status = 200

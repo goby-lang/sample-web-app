@@ -23133,14 +23133,14 @@ var ToDoList = function (_React$Component) {
       CHECK_LIST_ITEM: 2,
       UNCHECK_LIST_ITEM: 3,
       OPEN_MODAL: 4,
-      DELETE_LIST_ITEM: 5
+      EDIT_LIST_ITEM: 5,
+      DELETE_LIST_ITEM: 6
     };
-    _this.state = {
-      listItems: [] //{ key: 1, content: 'Hello, welcome to Goby Lang', checked: false }
-    };
+    _this.state = { listItems: [] };
     _this.handleCreateListItem = _this.handleCreateListItem.bind(_this);
     _this.handleCheckEvent = _this.handleCheckEvent.bind(_this);
     _this.handleOpenModal = _this.handleOpenModal.bind(_this);
+    _this.handleEditContent = _this.handleEditContent.bind(_this);
     _this.handleDeleteItem = _this.handleDeleteItem.bind(_this);
     return _this;
   }
@@ -23176,6 +23176,11 @@ var ToDoList = function (_React$Component) {
       this.action('DELETE_LIST_ITEM', id);
     }
   }, {
+    key: 'handleEditContent',
+    value: function handleEditContent(params) {
+      this.action('EDIT_LIST_ITEM', params.id, params.content);
+    }
+  }, {
     key: 'action',
     value: function action(event) {
       var _this3 = this;
@@ -23183,8 +23188,8 @@ var ToDoList = function (_React$Component) {
       var listItems = this.state.listItems;
       switch (this.events[event]) {
         case this.events.CREATE_LIST_ITEM:
-          var content = arguments.length <= 1 ? undefined : arguments[1];
-          _axios2.default.post('items', { title: content, checked: 0 }).then(function (response) {
+          var _content = arguments.length <= 1 ? undefined : arguments[1];
+          _axios2.default.post('items', { title: _content, checked: 0 }).then(function (response) {
             if (response.data.error) {
               var input = _this3.refs.form.refs['item-content'];
               input.setAttribute('placeholder', response.data.error);
@@ -23196,10 +23201,10 @@ var ToDoList = function (_React$Component) {
             } else {
               var _response$data = response.data,
                   _id = _response$data.id,
-                  _content = _response$data.title,
+                  _content2 = _response$data.title,
                   checked = _response$data.checked;
 
-              listItems.push({ key: _id, content: _content, checked: checked });
+              listItems.push({ key: _id, content: _content2, checked: checked });
               _this3.setState({ listItems: listItems });
             }
           });
@@ -23217,7 +23222,7 @@ var ToDoList = function (_React$Component) {
         case this.events.UNCHECK_LIST_ITEM:
           var id = arguments.length <= 1 ? undefined : arguments[1];
           var listItem = this.getItem(id);
-          _axios2.default.put('items/' + id + '/uncheck').then(function (response) {
+          _axios2.default.put('items/' + id + '/uncheck', { id: id }).then(function (response) {
             listItems[listItems.indexOf(listItem)].checked = false;
             _this3.setState({ listItems: listItems });
           });
@@ -23228,6 +23233,17 @@ var ToDoList = function (_React$Component) {
           var listItem = this.getItem(id);
           this.setState({ modal: { id: id, content: listItem.content } });
           this.refs.modal.open();
+          break;
+
+        case this.events.EDIT_LIST_ITEM:
+          var id = arguments.length <= 1 ? undefined : arguments[1];
+          var _content = arguments.length <= 2 ? undefined : arguments[2];
+          var listItem = this.getItem(id);
+          _axios2.default.put('items/' + id, { title: _content }).then(function (response) {
+            listItems[listItems.indexOf(listItem)].content = _content;
+            _this3.setState({ listItems: listItems });
+            _this3.refs['list-item-' + id].closeEditForm();
+          });
           break;
 
         case this.events.DELETE_LIST_ITEM:
@@ -23295,10 +23311,11 @@ var ToDoList = function (_React$Component) {
         return _react2.default.createElement(
           _ListItem2.default,
           {
-            key: item.key, id: item.key,
+            key: item.key, id: item.key, ref: 'list-item-' + item.key,
             checked: item.checked,
             checkEvent: _this5.handleCheckEvent,
-            openModal: _this5.handleOpenModal
+            openModal: _this5.handleOpenModal,
+            editContent: _this5.handleEditContent
           },
           item.content
         );
@@ -23366,16 +23383,43 @@ var ListItem = function (_React$Component) {
 
     _this.handleItemCheck = _this.handleItemCheck.bind(_this);
     _this.handleDeleteItemClick = _this.handleDeleteItemClick.bind(_this);
+    _this.handleEditContentChange = _this.handleEditContentChange.bind(_this);
+    _this.handleEditContent = _this.handleEditContent.bind(_this);
+    _this.handleHideEditForm = _this.handleHideEditForm.bind(_this);
+    _this.state = { content: _this.props.children };
     return _this;
   }
 
   _createClass(ListItem, [{
+    key: "closeEditForm",
+    value: function closeEditForm() {
+      document.getElementById("list-item-edit-" + this.props.id).checked = false;
+    }
+  }, {
     key: "handleItemCheck",
     value: function handleItemCheck(event) {
       this.props.checkEvent({
         id: this.props.id,
         check: this.props.checked
       });
+    }
+  }, {
+    key: "handleEditContentChange",
+    value: function handleEditContentChange(event) {
+      this.setState({ content: event.target.value });
+    }
+  }, {
+    key: "handleEditContent",
+    value: function handleEditContent(event) {
+      this.props.editContent({
+        id: this.props.id,
+        content: this.state.content
+      });
+    }
+  }, {
+    key: "handleHideEditForm",
+    value: function handleHideEditForm(event) {
+      this.closeEditForm();
     }
   }, {
     key: "handleDeleteItemClick",
@@ -23385,30 +23429,59 @@ var ListItem = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var labelId = "list-item-" + this.props.id;
+      var labelCheckId = "list-item-check-" + this.props.id;
+      var labelEditId = "list-item-edit-" + this.props.id;
       return _react2.default.createElement(
         "div",
         { className: "list-item" },
         _react2.default.createElement("input", {
           type: "checkbox",
-          id: labelId,
+          id: labelCheckId,
+          className: "list-item-check",
           checked: this.props.checked,
           onChange: this.handleItemCheck
         }),
+        _react2.default.createElement("input", {
+          type: "checkbox",
+          id: labelEditId,
+          className: "list-item-edit"
+        }),
         _react2.default.createElement(
           "span",
-          null,
+          { id: "content", ref: "content" },
           this.props.children
+        ),
+        _react2.default.createElement(
+          "span",
+          { id: "edit-form", ref: "edit-form" },
+          _react2.default.createElement("input", {
+            ref: "edit-content",
+            type: "text",
+            name: "edit-content",
+            id: "edit-content",
+            value: this.state.content,
+            onChange: this.handleEditContentChange
+          }),
+          _react2.default.createElement(
+            "button",
+            { id: "confirm", onClick: this.handleEditContent },
+            "OK"
+          ),
+          _react2.default.createElement(
+            "button",
+            { id: "cancel", onClick: this.handleHideEditForm },
+            "Cancel"
+          )
         ),
         _react2.default.createElement(
           "div",
           { className: "list-item-control" },
           _react2.default.createElement(
             "label",
-            { htmlFor: labelId },
+            { id: "check-item", htmlFor: labelCheckId },
             _react2.default.createElement(
               "svg",
-              { id: "Layer_1", height: "244.771px", viewBox: "0 0 262.083 244.771", enableBackground: "new 0 0 262.083 244.771" },
+              { id: "list-item-check-icon", height: "244.771px", viewBox: "0 0 262.083 244.771", enableBackground: "new 0 0 262.083 244.771" },
               _react2.default.createElement(
                 "g",
                 { transform: "translate(0,-952.36218)" },
@@ -23417,8 +23490,17 @@ var ListItem = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
+            "label",
+            { id: "edit-btn", htmlFor: labelEditId },
+            _react2.default.createElement(
+              "svg",
+              { id: "list-item-edit-icon", width: "105.896px", height: "105.767px", viewBox: "0 0 105.896 105.767", enableBackground: "new 0 0 105.896 105.767" },
+              _react2.default.createElement("path", { fill: "#333333", d: "M101.868,11.976l-8.2-8.2c-5.035-5.035-13.234-5.035-18.269,0L10.377,68.941c-1.438,1.438-2.158,3.165-2.445,4.891 l-7.768,26.325c-0.432,1.583,0,3.165,1.151,4.316c0.863,0.863,1.87,1.294,3.021,1.294c0.432,0,0.863,0,1.294-0.144l26.469-7.769 c1.727-0.287,3.453-1.007,4.891-2.445l65.165-65.165c2.445-2.445,3.74-5.754,3.74-9.207 C105.752,17.73,104.313,14.421,101.868,11.976z M13.83,84.621l7.48,7.48l-10.501,3.165L13.83,84.621z M30.661,89.368L30.661,89.368 L16.419,75.126l0,0l53.369-53.369L84.03,35.999L30.661,89.368z M95.826,24.203l-5.61,5.61L75.974,15.572l5.61-5.61 c1.726-1.726,4.459-1.726,6.042,0l8.2,8.2C97.408,19.744,97.408,22.477,95.826,24.203z" })
+            )
+          ),
+          _react2.default.createElement(
             "button",
-            { onClick: this.handleDeleteItemClick, id: "delete-btn" },
+            { id: "delete-btn", onClick: this.handleDeleteItemClick },
             _react2.default.createElement("span", null),
             _react2.default.createElement("span", null)
           )
