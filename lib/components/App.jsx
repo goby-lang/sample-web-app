@@ -74,7 +74,7 @@ export default class ToDoList extends React.Component {
       case this.events.CHECK_LIST_ITEM:
         var id = params[0]
         var listItem = this.getItem(id)
-        axios.put('item/check', { id: id }).then((response) => {
+        axios.put('items/'+ id + '/check').then((response) => {
           listItems[listItems.indexOf(listItem)].checked = true
           this.setState({ listItems: listItems })
         })
@@ -83,7 +83,7 @@ export default class ToDoList extends React.Component {
       case this.events.UNCHECK_LIST_ITEM:
         var id = params[0]
         var listItem = this.getItem(id)
-        axios.put('item/uncheck', { id: id }).then((response) => {
+        axios.put('items/' + id + '/uncheck').then((response) => {
           listItems[listItems.indexOf(listItem)].checked = false
           this.setState({ listItems: listItems })
         })
@@ -99,9 +99,7 @@ export default class ToDoList extends React.Component {
       case this.events.DELETE_LIST_ITEM:
         var id = params[0]
         var listItem = this.getItem(id)
-        // TODO: Fix the DELETE Action
-        // axios.delete('item', { id: id }).then((response) => {
-        axios.post('item/delete', { id: id }).then((response) => {
+        axios.delete('items/' + id).then((response) => {
           listItems.splice(listItems.indexOf(listItem), 1)
           this.refs.modal.close()
           this.setState({ listItems: listItems })

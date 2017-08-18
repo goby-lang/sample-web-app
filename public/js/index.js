@@ -23208,7 +23208,7 @@ var ToDoList = function (_React$Component) {
         case this.events.CHECK_LIST_ITEM:
           var id = arguments.length <= 1 ? undefined : arguments[1];
           var listItem = this.getItem(id);
-          _axios2.default.put('items/'+ id + '/check').then(function (response) {
+          _axios2.default.put('items/' + id + '/check').then(function (response) {
             listItems[listItems.indexOf(listItem)].checked = true;
             _this3.setState({ listItems: listItems });
           });
@@ -23233,7 +23233,6 @@ var ToDoList = function (_React$Component) {
         case this.events.DELETE_LIST_ITEM:
           var id = arguments.length <= 1 ? undefined : arguments[1];
           var listItem = this.getItem(id);
-          // TODO: Fix the DELETE Action
           _axios2.default.delete('items/' + id).then(function (response) {
             listItems.splice(listItems.indexOf(listItem), 1);
             _this3.refs.modal.close();
