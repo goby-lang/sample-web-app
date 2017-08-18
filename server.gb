@@ -37,26 +37,22 @@ server.post('/items') do |req, res|
 end
 
 # PUT Check Action
-server.put('/item/check') do |req, res|
-  params = JSON.parse req.body
-  ListItem.find(params[:id]).check
+server.put('/items/{id:[0-9]+}/check') do |req, res|
+  ListItem.find(req.params[:id]).check
   res.status = 200
 end
 
 # PUT Check Action
-server.put('/item/uncheck') do |req, res|
-  params = JSON.parse req.body
-  ListItem.find(params[:id]).uncheck
+server.put('/items/{id:[0-9]+}/uncheck') do |req, res|
+  ListItem.find(req.params[:id]).uncheck
   res.status = 200
 end
 
 # DELETE Delete Action
 # TODO: Fix the DELETE Action
 # server.delete('/item') do |req, res|
-server.post('/item/delete') do |req, res|
-  puts req.body
-  params = JSON.parse req.body
-  ListItem.find(params[:id]).destroy
+server.delete('/items/{id:[0-9]+}') do |req, res|
+  ListItem.find(req.params["id"]).destroy
   res.status = 200
 end
 
