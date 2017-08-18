@@ -1,6 +1,14 @@
 require "db"
 
-USER_NAME = 'ENTER YOUR USER NAME'
+# Environmnet Configuration
+ENV = {
+  USER_NAME: 'ENTER YOUR USER NAME',
+  DB_DRIVER: 'postgres',
+  DB_NAME: 'goby_test',
+  SSL_MODE: 'disable'
+}
+
+ENV["DB_SETTINGS"] = String.fmt("user=%s dbname=%s, sslmode=%s", ENV['USER_NAME'], ENV['DB_NAME'], ENV('SSL_MODE'))
 
 class ListItem
   attr_reader :id, :title, :checked
@@ -16,7 +24,7 @@ class ListItem
   end
 
   def self.db
-    @db ||= DB.open("postgres", "user=%s dbname=goby_test sslmode=disable", USER_NAME)
+    @db ||= DB.open(ENV['DB_DRIVER'], ENV['DB_SETTINGS'])
   end
 
   def self.all
