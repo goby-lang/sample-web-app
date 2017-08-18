@@ -1,7 +1,10 @@
 require "db"
 
-USER_NAME = 'MaxwellAlexius'
-PG = DB.open("postgres", String.fmt("user=%s dbname=goby_test sslmode=disable", USER_NAME))
+db_user = ENV["POSTGRES_USER"] || "postgres"
+db_name = ENV["POSTGRES_DB"] || "goby_test"
+db_host = ENV["POSTGRES_HOST"] || "localhost"
+
+PG = DB.open("postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
 
 PG.run("create table if not exists list_items (
   id   serial primary key,
