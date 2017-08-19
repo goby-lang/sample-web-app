@@ -1,0 +1,18 @@
+# Goby Built-in Net::SimpleServer Library
+
+# Require Net::SimpleServer Library
+require "net/simple_server"
+
+# Set Port 3000
+server = Net::SimpleServer.new("3000")
+
+# Setting Route
+server.get("/") do |request, response|
+  # Setting Response Details
+  response.status = 200
+  response.body = "Hello Goby!"
+  response.set_header("Content-Type", "text/plain; charset=utf-8")
+end
+
+# Mount Server
+server.start

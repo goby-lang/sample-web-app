@@ -1,0 +1,19 @@
+# Serving Static Files
+
+require "net/simple_server"
+
+server = Net::SimpleServer.new("3000")
+
+# Serve static file path using the Net::SimpleServer#static method
+server.static("/css/", "./public/css")
+
+# Serve the CSS files in path https://localhost:3000/css/
+# to ./public/css folder in server side
+
+# For example, the link tag below:
+#
+#   <link type="stylesheet" href="/css/index.css">
+#
+# will read the server side /public/css/index.css file
+
+server.start

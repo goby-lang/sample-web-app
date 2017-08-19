@@ -1,0 +1,9 @@
+# Goby Require Mechanism
+
+# Requiring Built-in Goby Libraries
+require "file"
+require "json"
+require "net/simple_server"
+
+# Require Relative Path act as Ruby Lang
+require_relative "model"

@@ -1,0 +1,22 @@
+# Goby File Library
+
+# Require File and Net::SimpleServer Library
+require "file"
+require "net/simple_server"
+
+server = Net::SimpleServer.new("3000")
+
+server.get("/") do |request, response|
+  # New File Instance
+  file = File.new("./public/index.html")
+
+  # Read File
+  content = file.read
+
+  # Set Response Content Type as HTML
+  response.status = 200
+  response.body = content
+  response.set_header("Content-Type", "text/html; charset=utf-8")
+end
+
+server.start

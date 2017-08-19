@@ -1,0 +1,14 @@
+# Goby Built-in JSON Library and Hash#to_json Method
+
+# Hash#to_json Method
+
+{ hello: 'world', lang: 'Goby', taipei: 101 }.to_json
+# => {"hello":"world","lang":"Goby","taipei":101}
+
+# Require JSON Library
+require 'json'
+
+# Using JSON.parse
+
+JSON.parse '{"hello": "world", "lang": "Goby", "taipei": 101}'
+# => { hello: "world", lang: "Goby", taipei: 101 }

@@ -1,0 +1,49 @@
+# RESTful Route Design
+
+# Assume "server" is the instance of Net::SimpleServer and
+# ListItem is the model of the TO-DO List
+
+# GET /items - All Items Action
+server.get("/items") do |request, response|
+  response.status = 200
+  response.body = { result: ListItem.all }.to_json
+  response.set_header("Content-Type", "application/json; charset=utf-8")
+end
+
+# POST /items - Create Action
+server.post('/items') do |request, response|
+  params = JSON.parse(request.body)
+  listItem = ListItem.create(params)
+  response.status = 200
+  if listItem.valid?
+    response.body = { title: listItem.title, checked: listItem.checked, id: listItem.id }.to_json
+  else
+    response.body = { error: listItem.error }.to_json
+  end
+  response.set_header("Content-Type", "application/json; charset=utf-8")
+end
+
+# PUT /items/:id - Update Action
+server.put('/items/{id:[0-9]+}') do |request, response|
+  title = JSON.parse(request.body)[:title]
+  ListItem.find(request.params[:id]).update_title(title)
+  response.status = 200
+end
+
+# PUT /items/:id/check - Check Action
+server.put('/items/{id:[0-9]+}/check') do |request, response|
+  ListItem.find(request.params[:id]).check
+  response.status = 200
+end
+
+# PUT /items/:id/uncheck - Uncheck Action
+server.put('/items/{id:[0-9]+}/uncheck') do |request, response|
+  ListItem.find(request.params[:id]).uncheck
+  response.status = 200
+end
+
+# DELETE /items/:id - Delete Action
+server.delete('/items/{id:[0-9]+}') do |request, response|
+  ListItem.find(request.params["id"]).destroy
+  response.status = 200
+end
