@@ -27,7 +27,9 @@ export default class ToDoList extends React.Component {
 
   componentDidMount() {
     this.getAllItems()
-    setInterval(() => this.getAllItems(), 5000)
+    
+    /* Update in Every 5 Seconds */
+    // setInterval(() => this.getAllItems(), 5000)
   }
 
   handleCreateListItem(content) {

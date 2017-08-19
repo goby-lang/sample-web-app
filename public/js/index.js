@@ -23148,12 +23148,10 @@ var ToDoList = function (_React$Component) {
   _createClass(ToDoList, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
       this.getAllItems();
-      setInterval(function () {
-        return _this2.getAllItems();
-      }, 5000);
+
+      /* Update in Every 5 Seconds */
+      // setInterval(() => this.getAllItems(), 5000)
     }
   }, {
     key: 'handleCreateListItem',
@@ -23183,7 +23181,7 @@ var ToDoList = function (_React$Component) {
   }, {
     key: 'action',
     value: function action(event) {
-      var _this3 = this;
+      var _this2 = this;
 
       var listItems = this.state.listItems;
       switch (this.events[event]) {
@@ -23191,7 +23189,7 @@ var ToDoList = function (_React$Component) {
           var _content = arguments.length <= 1 ? undefined : arguments[1];
           _axios2.default.post('items', { title: _content, checked: 0 }).then(function (response) {
             if (response.data.error) {
-              var input = _this3.refs.form.refs['item-content'];
+              var input = _this2.refs.form.refs['item-content'];
               input.setAttribute('placeholder', response.data.error);
               if (errorTimeoutID) window.clearTimeout(errorTimeoutID);
               errorTimeoutID = setTimeout(function () {
@@ -23205,7 +23203,7 @@ var ToDoList = function (_React$Component) {
                   checked = _response$data.checked;
 
               listItems.push({ key: _id, content: _content2, checked: checked });
-              _this3.setState({ listItems: listItems });
+              _this2.setState({ listItems: listItems });
             }
           });
           break;
@@ -23215,7 +23213,7 @@ var ToDoList = function (_React$Component) {
           var listItem = this.getItem(id);
           _axios2.default.put('items/' + id + '/check').then(function (response) {
             listItems[listItems.indexOf(listItem)].checked = true;
-            _this3.setState({ listItems: listItems });
+            _this2.setState({ listItems: listItems });
           });
           break;
 
@@ -23224,7 +23222,7 @@ var ToDoList = function (_React$Component) {
           var listItem = this.getItem(id);
           _axios2.default.put('items/' + id + '/uncheck', { id: id }).then(function (response) {
             listItems[listItems.indexOf(listItem)].checked = false;
-            _this3.setState({ listItems: listItems });
+            _this2.setState({ listItems: listItems });
           });
           break;
 
@@ -23241,8 +23239,8 @@ var ToDoList = function (_React$Component) {
           var listItem = this.getItem(id);
           _axios2.default.put('items/' + id, { title: _content }).then(function (response) {
             listItems[listItems.indexOf(listItem)].content = _content;
-            _this3.setState({ listItems: listItems });
-            _this3.refs['list-item-' + id].closeEditForm();
+            _this2.setState({ listItems: listItems });
+            _this2.refs['list-item-' + id].closeEditForm();
           });
           break;
 
@@ -23251,8 +23249,8 @@ var ToDoList = function (_React$Component) {
           var listItem = this.getItem(id);
           _axios2.default.delete('items/' + id).then(function (response) {
             listItems.splice(listItems.indexOf(listItem), 1);
-            _this3.refs.modal.close();
-            _this3.setState({ listItems: listItems });
+            _this2.refs.modal.close();
+            _this2.setState({ listItems: listItems });
           });
           break;
 
@@ -23270,7 +23268,7 @@ var ToDoList = function (_React$Component) {
   }, {
     key: 'getAllItems',
     value: function getAllItems() {
-      var _this4 = this;
+      var _this3 = this;
 
       _axios2.default.get('items').then(function (response) {
         var items = [];
@@ -23299,13 +23297,13 @@ var ToDoList = function (_React$Component) {
           }
         }
 
-        _this4.setState({ listItems: items });
+        _this3.setState({ listItems: items });
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       var renderListItems = this.state.listItems.map(function (item) {
         return _react2.default.createElement(
@@ -23313,9 +23311,9 @@ var ToDoList = function (_React$Component) {
           {
             key: item.key, id: item.key, ref: 'list-item-' + item.key,
             checked: item.checked,
-            checkEvent: _this5.handleCheckEvent,
-            openModal: _this5.handleOpenModal,
-            editContent: _this5.handleEditContent
+            checkEvent: _this4.handleCheckEvent,
+            openModal: _this4.handleOpenModal,
+            editContent: _this4.handleEditContent
           },
           item.content
         );
