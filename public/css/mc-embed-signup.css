@@ -1,7 +1,7 @@
 div#mc_embed_signup {
-  margin-top: 10vh;
   text-align: center;
   font-size: 0;
+  margin-bottom: 10vh;
 }
 div#mc_embed_signup h2 {
   font-size: 20pt;
@@ -10,7 +10,7 @@ div#mc_embed_signup > form {
   background-color: rgba(255, 255, 255, 0.3);
   display: inline-block;
   width: 100vw;
-  padding-bottom: 20pt;
+  padding: 30pt 0 60pt 0;
 }
 div#mc_embed_signup > form input {
   display: inline-block;
