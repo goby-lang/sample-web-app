@@ -16,7 +16,7 @@ html, body {
   font-family: 'Quicksand', sans-serif;
   width: 100vw;
   height: 100vh;
-  background-color: #333;
+  background-image: linear-gradient(30deg,#fbe06f,#f69f5e);
   color: white;
   overflow: hidden;
 }
@@ -28,24 +28,28 @@ button {
 }
 input:focus, button:focus { outline: none; }
 
-h1 {
-  font-family: 'Hero', sans-serif;
+nav {
+  display: block;
+  height: 20vh;
+  line-height: 20vh;
   text-align: center;
+}
+nav > img#logo {
+  display: inline-block;
+  height: 18vh;
 }
 
 .to-do-app {
   width: 85%;
   margin: 0 auto;
   box-sizing: border-box;
-  /* margin: 20pt; */
 }
 .to-do-app {
-  box-shadow: 3pt 3pt 0pt rgb(70, 70, 70),
-              6pt 6pt 0pt rgb(40, 40, 40),
-              9pt 9pt 0pt rgb(10, 10, 10);
+  box-shadow: 4pt 4pt 0pt rgba(247, 255, 160, 0.5),
+              8pt 8pt 0pt rgba(255, 194, 79, 0.65),
+              12pt 12pt 0pt rgba(255, 170, 0, 0.8);
 }
 .list-form {
-  background-color: #555;
   font-size: 0;
 }
 .list-form > input {
@@ -58,7 +62,7 @@ h1 {
   padding-left: 10pt;
   font-weight: 300;
   font-family: 'Quicksand', sans-serif;
-  background-color: #bbb;
+  background-color: #F9DE7F;
   border: none;
   transition: .25s;
 }
@@ -74,11 +78,11 @@ h1 {
   height: 40pt;
   line-height: 40pt;
   display: inline-block;
-  background-color: #888;
+  background-color: #FBA86F;
   color: white;
 }
 .list-form > button:hover {
-  background-color: #aaa;
+  background-color: #F88B40;
   color: #333;
   transition: .25s;
 }
@@ -88,8 +92,9 @@ h1 {
   vertical-align: middle;
 }
 .list-group {
-  background-color: #555;
-  box-shadow: inset 0pt 5pt 10pt #444;
+  background-color: #eea;
+  color: #666;
+  /* box-shadow: inset 0pt 5pt 10pt #444; */
   position: relative;
 }
 .list-group > .list-item {
@@ -101,7 +106,7 @@ h1 {
   animation: fadeIn .25s;
 }
 .list-group > .list-item:hover {
-  background-color: #666;
+  background-color: rgba(255, 255, 255, 0.7);
   transition: .25s;
 }
 .list-group > .list-item > .list-item-control {
@@ -162,7 +167,7 @@ h1 {
   top: -1000px;
 }
 .list-item > input[type="checkbox"]:checked.list-item-check ~ span {
-  color: #999;
+  color: rgba(100, 100, 100, 0.3);
   transition: .25s;
 }
 .list-item > input[type="checkbox"]:checked.list-item-check ~ .list-item-control > label > svg#list-item-check-icon path,
@@ -173,6 +178,7 @@ h1 {
 .list-item > input[type="checkbox"]:checked.list-item-edit ~ span#edit-form,
 .list-item > span#content {
   display: inline;
+  word-wrap: auto;
 }
 .list-item > input[type="checkbox"]:checked.list-item-edit ~ span#content,
 .list-item > input[type="checkbox"]:checked.list-item-edit ~ .list-item-control > label#check-item,
@@ -188,8 +194,8 @@ h1 {
   padding-left: 4pt;
   font-size: 12pt;
   vertical-align: middle;
-  color: white;
-  background-color: #777;
+  color: #666;
+  background-color: #ddd;
   border: none;
   margin: 0;
 }
@@ -221,7 +227,8 @@ h1 {
   position: absolute;
   width: 400pt;
   height: 175pt;
-  background-color:#555;
+  background-color:#F9DE7F;
+  color: #666;
   top: 0;
   bottom: 0;
   left: 0;
@@ -266,7 +273,7 @@ h1 {
 }
 
 #goby-lang {
-  height: 80vh;
+  height: 70vh;
   overflow: auto;
 }
 
