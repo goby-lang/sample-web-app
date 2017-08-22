@@ -1,5 +1,7 @@
 # Goby Sample Server APP - To Do List
 
+![Sample App Image](./img/sample-app-img.png)
+
 ## Requirement
 
 - NodeJS & Yarn
@@ -12,14 +14,7 @@ Clone it!
 $ git clone git@github.com:goby-lang/sample-web-app.git
 ```
 
-Go into the project directory, run the command to install JS packages and open webpack watch mode:
-
-```
-$ yarn install
-$ webpack -w
-```
-
-Then open another terminal and run the command:
+Go into the project directory, then open another terminal and run the command:
 
 ```
 $ goby server.gb
@@ -29,5 +24,6 @@ Open `http://localhost:3000` and enjoy!
 
 ## Contributors
 
-- @st0012
-- @Maxwell-Alexius
+- Creator of Goby @st0012
+- Sample APP Maintainer @Maxwell-Alexius
+- Logo Designer @steward
