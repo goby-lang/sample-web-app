@@ -6,6 +6,12 @@ div#mc_embed_signup {
 div#mc_embed_signup h2 {
   font-size: 20pt;
 }  
+div#mc_embed_signup h4 {
+  font-size: 15pt;
+} 
+div#mc_embed_signup h5 {
+  font-size: 13pt;
+} 
 div#mc_embed_signup > form {
   background-color: rgba(255, 255, 255, 0.3);
   display: inline-block;
