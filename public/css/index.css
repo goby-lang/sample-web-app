@@ -15,10 +15,10 @@ html, body {
   list-style-type: none;
   font-family: 'Quicksand', sans-serif;
   width: 100vw;
-  height: 100vh;
+  height: 150vh;
   background-image: linear-gradient(45deg,#FF903E,#FFF5CE);
   color: white;
-  overflow: hidden;
+  overflow: auto;
 }
 button {
   border: none;
@@ -30,19 +30,41 @@ input:focus, button:focus { outline: none; }
 
 nav {
   display: block;
-  height: 25vh;
-  line-height: 25vh;
+  height: 35vh;
+  line-height: 35vh;
   vertical-align: middle;
   text-align: center;
 }
 nav > .nav-wrapper {
   display: inline-block;
-  height: 18vh;
+  height: 23vh;
   vertical-align: middle;
+}
+nav > .nav-wrapper > a {
+  text-decoration: none;
+  vertical-align: top;
+  font-family: 'Hero', sans-serif;
+  font-size: 16pt;
+  color: white;
+}
+nav > .nav-wrapper > a:not(#logo-link) {
+  width: 100pt;
+  height: 23vh;
+  line-height: 23vh;
+  display: inline-block;
+}
+nav > .nav-wrapper > a:not(#logo-link) > span {
+  padding: 25pt 12pt;
+  transition: .25s;
+}
+nav > .nav-wrapper > a:not(#logo-link):hover > span {
+  background-color: rgba(255, 158, 102, 0.69);
+  border-radius: 50%;
+  transition: .25s;
 }
 nav > .nav-wrapper > a > img#logo {
   display: inline-block;
-  height: 18vh;
+  height: 23vh;
   transition: .25s;
 }
 nav > .nav-wrapper > a:hover > img#logo {
