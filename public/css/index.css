@@ -16,7 +16,7 @@ html, body {
   font-family: 'Quicksand', sans-serif;
   width: 100vw;
   height: 100vh;
-  background-image: linear-gradient(30deg,#fbe06f,#f69f5e);
+  background-image: linear-gradient(45deg,#FF903E,#FFF5CE);
   color: white;
   overflow: hidden;
 }
@@ -30,18 +30,31 @@ input:focus, button:focus { outline: none; }
 
 nav {
   display: block;
-  height: 20vh;
-  line-height: 20vh;
+  height: 25vh;
+  line-height: 25vh;
+  vertical-align: middle;
   text-align: center;
 }
-nav > img#logo {
+nav > .nav-wrapper {
   display: inline-block;
   height: 18vh;
+  vertical-align: middle;
+}
+nav > .nav-wrapper > a > img#logo {
+  display: inline-block;
+  height: 18vh;
+  transition: .25s;
+}
+nav > .nav-wrapper > a:hover > img#logo {
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: .25s;
 }
 
 .to-do-app {
   width: 85%;
   margin: 0 auto;
+  max-height: 65vh;
   box-sizing: border-box;
 }
 .to-do-app {
@@ -94,6 +107,8 @@ nav > img#logo {
 .list-group {
   background-color: #eea;
   color: #666;
+  max-height: calc(65vh - 40pt);
+  overflow: auto;
   /* box-shadow: inset 0pt 5pt 10pt #444; */
   position: relative;
 }
@@ -164,7 +179,8 @@ nav > img#logo {
 }
 .list-item > input[type="checkbox"] {
   position: absolute;
-  top: -1000px;
+  /* top: -1000px; */
+  display: none;
 }
 .list-item > input[type="checkbox"]:checked.list-item-check ~ span {
   color: rgba(100, 100, 100, 0.3);
@@ -195,7 +211,7 @@ nav > img#logo {
   font-size: 12pt;
   vertical-align: middle;
   color: #666;
-  background-color: #ddd;
+  background-color: #FFD8BE;
   border: none;
   margin: 0;
 }
@@ -273,7 +289,7 @@ nav > img#logo {
 }
 
 #goby-lang {
-  height: 70vh;
+  height: 65vh;
   overflow: auto;
 }
 
