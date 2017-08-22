@@ -49,7 +49,7 @@ class ListItem
   end
 
   def self.all
-    self.db.query("SELECT * FROM list_items ORDER BY id ASC")
+    self.db.query("SELECT * FROM list_items ORDER BY id DESC")
   end
 
   def self.find(id)

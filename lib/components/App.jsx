@@ -71,7 +71,7 @@ export default class ToDoList extends React.Component {
             }, 3000)
           } else {
             let { id: id, title: content, checked: checked } = response.data
-            listItems.push({ key: id, content: content, checked: checked })        
+            listItems.unshift({ key: id, content: content, checked: checked })        
             this.setState({ listItems: listItems })
           }
         })

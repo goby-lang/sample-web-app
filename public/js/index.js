@@ -23236,7 +23236,7 @@ var ToDoList = function (_React$Component) {
                   _content2 = _response$data.title,
                   checked = _response$data.checked;
 
-              listItems.push({ key: _id, content: _content2, checked: checked });
+              listItems.unshift({ key: _id, content: _content2, checked: checked });
               _this2.setState({ listItems: listItems });
             }
           });
