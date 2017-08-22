@@ -1,0 +1,56 @@
+div#mc_embed_signup {
+  margin-top: 10vh;
+  text-align: center;
+  font-size: 0;
+}
+div#mc_embed_signup h2 {
+  font-size: 20pt;
+}  
+div#mc_embed_signup > form {
+  background-color: rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  width: 100vw;
+  padding-bottom: 20pt;
+}
+div#mc_embed_signup > form input {
+  display: inline-block;
+  border: none;
+  height: 40pt;
+  line-height: 40pt;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: bottom;
+  font-size: 14pt;
+  font-family: 'Quicksand', sans-serif;  
+}
+div#mc_embed_signup > form input[type="submit"]:hover {
+  background-color: #E72200;
+}
+
+@media screen and (max-width: 767px) {
+  div#mc_embed_signup > form input[type="email"] {
+    width: 60%;
+    padding: 0 10pt;
+  }
+  div#mc_embed_signup > form input[type="submit"] {
+    width: 20%;
+    border: none;
+    border-radius: 0;
+    background-color: #F45951;
+    color: white;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  div#mc_embed_signup > form input[type="email"] {
+    width: 400pt;
+    padding: 0 10pt;
+  }
+  div#mc_embed_signup > form input[type="submit"] {
+    width: 100pt;
+    border: none;
+    border-radius: 0;
+    background-color: #F45951;
+    color: white;
+  }
+}
