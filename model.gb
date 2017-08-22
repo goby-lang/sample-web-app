@@ -2,7 +2,7 @@ require "db"
 
 db_user = ENV["POSTGRES_USER"] || "postgres"
 db_name = ENV["POSTGRES_DB"]   || "goby_test"
-db_host = ENV["POSTGRES_HOST"] || "localhost"
+db_host = ENV["POSTGRES_HOST"] || "0.0.0.0"
 
 PG = DB.open("postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
 
