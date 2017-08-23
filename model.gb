@@ -71,7 +71,9 @@ class ListItem
   end
 
   def self.validates(params)
-    if params && (params[:title].nil? || params[:title].empty?)
+    if params.nil? || params[:title].nil?
+      yield({ error: 'Title cannot be empty' })
+    elsif params[:title].empty?
       yield({ error: 'Title cannot be empty' })
     else
       if params[:title].length > 40
