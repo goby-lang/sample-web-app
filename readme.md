@@ -6,6 +6,7 @@
 
 - NodeJS & Yarn
 - Goby
+- PostgresDB
 ## Usage
 
 Clone it!

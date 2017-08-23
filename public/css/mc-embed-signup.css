@@ -13,7 +13,8 @@ div#mc_embed_signup h5 {
   font-size: 13pt;
 } 
 div#mc_embed_signup > form {
-  background-color: rgba(255, 255, 255, 0.3);
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  background-image: linear-gradient(340deg, rgba(255, 106, 128, 0.30), rgba(255, 170, 0, 0.3));
   display: inline-block;
   width: 100vw;
   padding: 30pt 0 60pt 0;
