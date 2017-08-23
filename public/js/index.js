@@ -10457,29 +10457,83 @@ var _highlightLite2 = _interopRequireDefault(_highlightLite);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const fileURL = file => `https://api.github.com/repos/goby-lang/sample-web-app/contents/examples/${file}.gb`
-var fileURL = 'https://api.github.com/repos/goby-lang/sample-web-app/contents/server.gb';
+var fileURL = function fileURL(filePath) {
+  return 'https://api.github.com/repos/goby-lang/sample-web-app/contents/' + filePath;
+};
+// const fileURL = 'https://api.github.com/repos/goby-lang/sample-web-app/contents/server.gb'
 var styleURL = function styleURL(style) {
   return '/css/code-style/' + style + '.css';
 };
 
-var getCodeContent = function getCodeContent(dir) {
-  return _axios2.default.get(fileURL);
+var codeFiles = {
+  'server-code': 'server.gb',
+  'model-code': 'model.gb'
 };
 
-getCodeContent('server').then(function (response) {
-  var code = atob(response.data.content);
+_axios2.default.all(Object.values(codeFiles).map(function (file) {
+  return _axios2.default.get(fileURL(file));
+})).then(function (responses) {
+  var codes = responses.map(function (response) {
+    return atob(response.data.content);
+  });
   var $codeBlock = document.getElementById('render-code');
   var $style = document.getElementById('code-style');
 
-  $codeBlock.innerHTML = code;
+  var codeObj = {
+    'server-code': codes[0],
+    'model-code': codes[1]
+  };
+
+  $codeBlock.innerHTML = codes[0];
   _highlightLite2.default.highlightBlock($codeBlock);
 
-  // Change Style
-  // setTimeout(() => {
-  //   $style.href = '/css/tomorrow-night-blue.css'
-  // }, 5000)
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    var _loop = function _loop() {
+      var id = _step.value;
+
+      document.getElementById(id).addEventListener('click', function (event) {
+        document.querySelector('li.active').className = '';
+        document.getElementById(id).className = 'active';
+        $codeBlock.innerHTML = codeObj[id];
+        _highlightLite2.default.highlightBlock($codeBlock);
+      });
+    };
+
+    for (var _iterator = Object.keys(codeFiles)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      _loop();
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
 });
+// getCodeContent('server').then((response) => {
+//   let code = atob(response.data.content)
+//   const $codeBlock = document.getElementById('render-code')
+//   const $style = document.getElementById('code-style')
+
+//   $codeBlock.innerHTML = code
+//   hljs.highlightBlock($codeBlock)
+
+// Change Style
+// setTimeout(() => {
+//   $style.href = '/css/tomorrow-night-blue.css'
+// }, 5000)
+// })
 
 window.addEventListener('load', function () {
   _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));

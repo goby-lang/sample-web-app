@@ -27,6 +27,8 @@ button {
   border-radius: 0;
 }
 input:focus, button:focus { outline: none; }
+ul { margin: 0; padding: 0; }
+li { list-style-type: none; }
 
 .caption {
   text-align: center;
@@ -273,11 +275,6 @@ input:focus, button:focus { outline: none; }
 .list-item > span#edit-form > button#cancel:hover {
   background-color: #dd4960;
   transition: .25s;
-}
-
-#goby-lang {
-  height: 65vh;
-  overflow: auto;
 }
 
 @keyframes fadeIn {

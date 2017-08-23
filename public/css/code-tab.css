@@ -1,0 +1,36 @@
+#goby-lang {
+  height: 65vh;
+}
+#goby-lang > pre {
+  margin: 0;
+  height: calc(65vh - 35pt);
+  overflow: auto;
+}
+ul#code-tab {
+  background-color: #FBA86F;
+  height: 35pt;
+  box-sizing: border-box;
+  font-size: 0;
+  /* border-bottom: 2pt solid #fdd; */
+}
+ul#code-tab > li {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0 10pt;
+  height: 35pt;
+  width: 75pt;
+  line-height: 35pt;
+  border-bottom: 2pt solid #fdd;
+  font-size: 12pt;
+  transition: .25s;
+}
+ul#code-tab > li.active {
+  background-color: rgba(255, 106, 128, 0.8);
+  border-color: #faa;
+  transition: .25s;
+}
+ul#code-tab > li:hover:not(.active) {
+  background-color: #F88B40;
+  border-color: #faa;
+  transition: .25s;
+}

@@ -78,10 +78,3 @@ class ListItem
     end
   end
 end
-
-# db.exec("INSERT INTO users (name, age) VALUES ('Stan', 23)")
-# results = db.query("SELECT * FROM users")
-# results.count
-
-# puts results
-# puts results.count
