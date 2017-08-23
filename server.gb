@@ -28,11 +28,10 @@ end
 server.post('/items') do |req, res|
   params = JSON.parse req.body
   listItem = ListItem.create(params)
+  res.status = 200
   if listItem.valid?
-    res.status = 200
     res.body = { title: listItem.title, checked: listItem.checked, id: listItem.id }.to_json
   else
-    res.status = 400
     res.body = { error: listItem.error }.to_json
   end
   res.set_header("Content-Type", "application/json; charset=utf-8")
