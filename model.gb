@@ -74,7 +74,11 @@ class ListItem
     if params && (params[:title].nil? || params[:title].empty?)
       yield({ error: 'Title cannot be empty' })
     else
-      yield({ error: nil })
+      if params[:title].length > 40
+        yield({ error: 'Title too long (should less than 40 characters)' })
+      else
+        yield({ error: nil })
+      end
     end
   end
 end
