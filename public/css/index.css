@@ -15,7 +15,7 @@ html, body {
   list-style-type: none;
   font-family: 'Quicksand', sans-serif;
   width: 100vw;
-  height: 170vh;
+  height: 180vh;
   background-image: linear-gradient(45deg,#FF903E,#FFF5CE);
   color: white;
   overflow: auto;
@@ -29,16 +29,7 @@ button {
 input:focus, button:focus { outline: none; }
 ul { margin: 0; padding: 0; }
 li { list-style-type: none; }
-
-.caption {
-  text-align: center;
-}
-.caption > h2#caption-title {
-  padding: 10pt 0;
-  margin: 0;
-  font-size: 16pt;
-  background-image: linear-gradient(160deg, rgba(255, 106, 128, 0.80), rgba(255, 170, 0, 0.8));
-}
+a { text-decoration: none; }
 
 .to-do-app {
   width: 85%;

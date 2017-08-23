@@ -1,0 +1,27 @@
+.caption {
+  text-align: center;
+}
+.caption > h2 {
+  height: 40pt;
+  line-height: 40pt;
+  margin: 0;
+  font-size: 16pt;
+}
+.caption > h2 > a {
+  color: white;
+  display: inline-block;
+  width: 100%;
+  height: 40pt;
+  line-height: 40pt;
+  transition: .25s;
+}
+.caption > h2#caption-title {
+  background-image: linear-gradient(160deg, rgba(255, 106, 128, 0.80), rgba(255, 170, 0, 0.8));
+}
+.caption > h2#feature-title {
+  background-image: linear-gradient(10deg, rgba(183, 46, 255, 0.65), rgba(255, 163, 175, 0.80));
+}
+.caption > h2#feature-title:hover > a {
+  background-color: rgba(183, 46, 255, 0.3);
+  transition: .25s;
+}
