@@ -23595,6 +23595,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var errorTimeoutID = null;
+
 var ListForm = function (_React$Component) {
   _inherits(ListForm, _React$Component);
 
@@ -23607,10 +23609,41 @@ var ListForm = function (_React$Component) {
   _createClass(ListForm, [{
     key: 'handleCreateListItemEvent',
     value: function handleCreateListItemEvent(event) {
+      var _this2 = this;
+
       event.preventDefault();
       var input = this.refs['item-content'];
-      this.props.createListItem(input.value);
+      this.validates(input.value,
+      /* Input success */
+      function () {
+        _this2.props.createListItem(input.value);
+      },
+      /* Input Error */
+      function (error) {
+        input.setAttribute('placeholder', error);
+        input.className = 'error';
+        if (errorTimeoutID) window.clearTimeout(errorTimeoutID);
+        errorTimeoutID = setTimeout(function () {
+          input.setAttribute('placeholder', '');
+          errorTimeoutID = null;
+          input.className = '';
+        }, 3000);
+      });
+
       input.value = '';
+    }
+  }, {
+    key: 'validates',
+    value: function validates(value, success, error) {
+      if (value === '') {
+        error('Title cannot be empty!');
+      } else if (/\"/.test(value)) {
+        error('Wrong title format!');
+      } else if (value.length > 40) {
+        error('Maximum length: 40 characters');
+      } else {
+        success();
+      }
     }
   }, {
     key: 'render',

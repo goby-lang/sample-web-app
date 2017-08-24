@@ -59,6 +59,10 @@ a { text-decoration: none; }
   border: none;
   transition: .25s;
 }
+.list-form > input.error, .list-form input.error:focus {
+  background-color: #FEABB7;
+  transition: .25s;
+}
 .list-form > input:focus {
   background-color: #eee;
   outline: none;
