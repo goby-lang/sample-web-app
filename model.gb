@@ -64,7 +64,7 @@ class ListItem
       if result[:error].nil?
         title   = params[:title]
         checked = params[:checked].to_i == 1
-        resultID = self.db.exec(String.fmt("INSERT INTO list_items (title, checked) VALUES ('%s', %s)", title, checked))
+        resultID = self.db.exec("INSERT INTO list_items (title, checked) VALUES ($1, $2)", title, checked)
         new({ id: resultID, title: title, checked: checked })
       else
         new({ error: result[:error] })
@@ -77,8 +77,6 @@ class ListItem
       yield({ error: 'Title cannot be empty' })
     elsif params[:title].empty?
       yield({ error: 'Title cannot be empty' })
-    elsif params[:title].include?('"')
-      yield({ error: 'Invalid title' })
     else
       if params[:title].length > 40
         yield({ error: 'Title too long (should less than 40 characters)' })
