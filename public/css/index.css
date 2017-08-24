@@ -301,6 +301,9 @@ a { text-decoration: none; }
   .wrapper {
     width: 100%;
   }
+  .inner-wrapper + .inner-wrapper {
+    margin-top: 10vh;
+  }
 }
 @media screen and (min-width: 768px) {
   .wrapper {
@@ -313,7 +316,7 @@ a { text-decoration: none; }
     clear: both;
   }
   .inner-wrapper {
-    width: 50%;
+    width: 48%;
     box-sizing: border-box;
     float: left;
   }

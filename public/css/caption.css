@@ -5,7 +5,7 @@
   height: 40pt;
   line-height: 40pt;
   margin: 0;
-  font-size: 16pt;
+  transition: .25s;
 }
 .caption > h2 > a {
   color: white;
@@ -24,4 +24,11 @@
 .caption > h2#feature-title:hover > a {
   background-color: rgba(183, 46, 255, 0.3);
   transition: .25s;
+}
+
+@media screen and (max-width: 767px) {
+  .caption > h2 { font-size: 13pt; }
+}
+@media screen and (min-width: 768px) {
+  .caption > h2 { font-size: 16pt; }
 }

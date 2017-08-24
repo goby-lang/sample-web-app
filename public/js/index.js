@@ -10484,7 +10484,7 @@ _axios2.default.all(Object.values(codeFiles).map(function (file) {
     'model-code': codes[1]
   };
 
-  $codeBlock.innerHTML = codes[0];
+  $codeBlock.innerText = codes[0];
   _highlightLite2.default.highlightBlock($codeBlock);
 
   var _iteratorNormalCompletion = true;
@@ -10498,7 +10498,7 @@ _axios2.default.all(Object.values(codeFiles).map(function (file) {
       document.getElementById(id).addEventListener('click', function (event) {
         document.querySelector('li.active').className = '';
         document.getElementById(id).className = 'active';
-        $codeBlock.innerHTML = codeObj[id];
+        $codeBlock.innerText = codeObj[id];
         _highlightLite2.default.highlightBlock($codeBlock);
       });
     };
@@ -10526,7 +10526,7 @@ _axios2.default.all(Object.values(codeFiles).map(function (file) {
 //   const $codeBlock = document.getElementById('render-code')
 //   const $style = document.getElementById('code-style')
 
-//   $codeBlock.innerHTML = code
+//   $codeBlock.innerText = code
 //   hljs.highlightBlock($codeBlock)
 
 // Change Style

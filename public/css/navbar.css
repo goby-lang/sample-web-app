@@ -1,45 +1,91 @@
-
 nav {
   display: block;
-  height: 35vh;
-  line-height: 35vh;
   vertical-align: middle;
   text-align: center;
 }
-nav > .nav-wrapper {
-  display: inline-block;
-  height: 23vh;
-  vertical-align: middle;
-}
-nav > .nav-wrapper > a {
+nav > .nav-wrapper a {
   text-decoration: none;
-  vertical-align: top;
   font-family: 'Hero', sans-serif;
-  font-size: 16pt;
   color: white;
-}
-nav > .nav-wrapper > a:not(#logo-link) {
-  width: 100pt;
-  height: 23vh;
-  line-height: 23vh;
-  display: inline-block;
-}
-nav > .nav-wrapper > a:not(#logo-link) > span {
-  padding: 25pt 12pt;
-  transition: .25s;
-}
-nav > .nav-wrapper > a:not(#logo-link):hover > span {
-  background-color: rgba(255, 158, 102, 0.69);
-  border-radius: 50%;
-  transition: .25s;
-}
-nav > .nav-wrapper > a > img#logo {
-  display: inline-block;
-  height: 23vh;
-  transition: .25s;
 }
 nav > .nav-wrapper > a:hover > img#logo {
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.3);
   transition: .25s;
+}
+
+nav > #desktop-nav.nav-wrapper > a {
+  vertical-align: top;
+  font-size: 16pt;
+}
+nav > #desktop-nav.nav-wrapper > a:not(#logo-link) {
+  width: 100pt;
+  height: 23vh;
+  line-height: 23vh;
+  display: inline-block;
+}
+nav > #desktop-nav.nav-wrapper > a:not(#logo-link) > span {
+  padding: 25pt 12pt;
+  transition: .25s;
+}
+nav > #desktop-nav.nav-wrapper > a:not(#logo-link):hover > span {
+  background-color: rgba(255, 158, 102, 0.69);
+  border-radius: 50%;
+  transition: .25s;
+}
+nav > #desktop-nav.nav-wrapper > a > img#logo {
+  display: inline-block;
+  height: 23vh;
+  transition: .25s;
+}
+
+nav > #mobile-nav.nav-wrapper > a > img#logo {
+  display: inline-block;
+  height: 25vh;
+  vertical-align: middle;
+  transition: .25s;
+}
+nav > #mobile-nav.nav-wrapper > div.nav-tabs {
+  line-height: 10vh;
+  height: 10vh;
+}
+nav > #mobile-nav.nav-wrapper > div.nav-tabs > a > span {
+  padding: 2vh 2.5vw;
+  transition: .25s;
+  font-size: 14.5pt;
+}
+nav > #mobile-nav.nav-wrapper > div.nav-tabs > a:hover > span {
+  background-color: rgba(255, 158, 102, 0.69);
+  border-radius: 50%;
+  transition: .25s;
+}
+
+@media screen and (max-width: 767px) {
+  nav {
+    height: 35vh;
+    padding-top: 20pt;
+  }
+  div#desktop-nav {
+    display: none;
+    height: 0;
+  }
+  div#mobile-nav  {
+    display: block;
+    height: 20vh;
+  }
+}
+@media screen and (min-width: 768px) {
+  nav {
+    height: 35vh;
+    line-height: 35vh;
+  }
+  div#desktop-nav {
+    display: inline-block;
+    height: 23vh;
+    vertical-align: middle;
+  }
+  div#mobile-nav  {
+    display: none;
+    height: 0;
+  }
 }
