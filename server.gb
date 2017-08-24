@@ -56,6 +56,8 @@ server.put('/items/{id:[0-9]+}') do |req, res|
 
   if params.nil? || params[:title].nil?
     res.status = 400
+  elsif params[:title].length > 40
+    res.status = 400
   else
     record = ListItem.find(req.params[:id])
     if record
