@@ -11,18 +11,16 @@ ul#code-tab {
   height: 35pt;
   box-sizing: border-box;
   font-size: 0;
-  /* border-bottom: 2pt solid #fdd; */
 }
 ul#code-tab > li {
   display: inline-block;
   box-sizing: border-box;
-  padding: 0 10pt;
   height: 35pt;
   width: 75pt;
   line-height: 35pt;
   border-bottom: 2pt solid #fdd;
-  font-size: 12pt;
   transition: .25s;
+  text-align: center;
 }
 ul#code-tab > li.active {
   background-color: rgba(255, 106, 128, 0.8);
@@ -33,4 +31,20 @@ ul#code-tab > li:hover:not(.active) {
   background-color: #F88B40;
   border-color: #faa;
   transition: .25s;
+}
+
+@media screen and (max-width: 767px) {
+  pre code {
+    font-size: 8pt;
+  }
+  ul#code-tab > li {
+    font-size: 10pt;
+    padding: 0 6pt;
+  }
+}
+@media screen and (min-width: 768px) {
+  ul#code-tab > li {
+    font-size: 12pt;
+    padding: 0 10pt;
+  }
 }

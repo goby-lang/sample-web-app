@@ -50,9 +50,9 @@ nav > #mobile-nav.nav-wrapper > div.nav-tabs {
   height: 10vh;
 }
 nav > #mobile-nav.nav-wrapper > div.nav-tabs > a > span {
-  padding: 2vh 2.5vw;
+  padding: 1.5vh 2vw;
   transition: .25s;
-  font-size: 14.5pt;
+  font-size: 12pt;
 }
 nav > #mobile-nav.nav-wrapper > div.nav-tabs > a:hover > span {
   background-color: rgba(255, 158, 102, 0.69);
