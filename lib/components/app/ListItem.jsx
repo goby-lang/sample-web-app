@@ -2,11 +2,6 @@ import React from 'react'
 export default class ListItem extends React.Component {
   constructor(props) {
     super(props)
-    this.handleItemCheck = this.handleItemCheck.bind(this)
-    this.handleDeleteItemClick = this.handleDeleteItemClick.bind(this)
-    this.handleEditContentChange = this.handleEditContentChange.bind(this)
-    this.handleEditContent = this.handleEditContent.bind(this)
-    this.handleHideEditForm = this.handleHideEditForm.bind(this)
     this.state = { content: this.props.children }
   }
 
@@ -50,7 +45,7 @@ export default class ListItem extends React.Component {
           id={labelCheckId}
           className="list-item-check"
           checked={this.props.checked}
-          onChange={this.handleItemCheck}
+          onChange={this.handleItemCheck.bind(this)}
         />
 
         <input
@@ -68,10 +63,10 @@ export default class ListItem extends React.Component {
             name="edit-content"
             id="edit-content"
             value={this.state.content}
-            onChange={this.handleEditContentChange}
+            onChange={this.handleEditContentChange.bind(this)}
           />
-          <button id="confirm" onClick={this.handleEditContent}>OK</button>
-          <button id="cancel" onClick={this.handleHideEditForm}>Cancel</button>
+          <button id="confirm" onClick={this.handleEditContent.bind(this)}>OK</button>
+          <button id="cancel" onClick={this.handleHideEditForm.bind(this)}>Cancel</button>
         </span>
 
         <div className="list-item-control">
@@ -89,7 +84,7 @@ export default class ListItem extends React.Component {
             </svg>
           </label>
 
-          <button id="delete-btn" onClick={this.handleDeleteItemClick}>
+          <button id="delete-btn" onClick={this.handleDeleteItemClick.bind(this)}>
             <span></span>
             <span></span>
           </button>

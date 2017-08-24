@@ -4,8 +4,6 @@ export default class ListModal extends React.Component {
   constructor(props) {
     super(props)
     this.open = this.open.bind(this)
-    this.handleConfirmDelete = this.handleConfirmDelete.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
   open() {
@@ -32,8 +30,8 @@ export default class ListModal extends React.Component {
           <p>You are going to delete the item</p>
           <h3>{this.props.modalContent}</h3>
           <div className="list-modal-btn-group">
-            <button id="modal-confirm" onClick={this.handleConfirmDelete}>Yes</button>
-            <button id="modal-cancel" onClick={this.handleCloseModal}>No</button>
+            <button id="modal-confirm" onClick={this.handleConfirmDelete.bind(this)}>Yes</button>
+            <button id="modal-cancel" onClick={this.handleCloseModal.bind(this)}>No</button>
           </div>
         </div>
       </div>
