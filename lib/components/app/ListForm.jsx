@@ -3,7 +3,6 @@ import React from 'react'
 export default class ListForm extends React.Component {
   constructor(props) {
     super(props)
-    this.handleCreateListItemEvent = this.handleCreateListItemEvent.bind(this)
   }
 
   handleCreateListItemEvent(event) {
@@ -17,7 +16,7 @@ export default class ListForm extends React.Component {
     return (
       <div className="list-form">
         <input ref="item-content" id="item-content" />
-        <button onClick={this.handleCreateListItemEvent}>
+        <button onClick={this.handleCreateListItemEvent.bind(this)}>
           <img src="/icon/plus-sign-light.png" alt="plus-sign"/>
         </button>
       </div>

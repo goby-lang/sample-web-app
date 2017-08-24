@@ -23225,11 +23225,6 @@ var ToDoList = function (_React$Component) {
       DELETE_LIST_ITEM: 6
     };
     _this.state = { listItems: [] };
-    _this.handleCreateListItem = _this.handleCreateListItem.bind(_this);
-    _this.handleCheckEvent = _this.handleCheckEvent.bind(_this);
-    _this.handleOpenModal = _this.handleOpenModal.bind(_this);
-    _this.handleEditContent = _this.handleEditContent.bind(_this);
-    _this.handleDeleteItem = _this.handleDeleteItem.bind(_this);
     return _this;
   }
 
@@ -23379,9 +23374,9 @@ var ToDoList = function (_React$Component) {
           {
             key: item.key, id: item.key, ref: 'list-item-' + item.key,
             checked: item.checked,
-            checkEvent: _this4.handleCheckEvent,
-            openModal: _this4.handleOpenModal,
-            editContent: _this4.handleEditContent
+            checkEvent: _this4.handleCheckEvent.bind(_this4),
+            openModal: _this4.handleOpenModal.bind(_this4),
+            editContent: _this4.handleEditContent.bind(_this4)
           },
           item.content
         );
@@ -23391,14 +23386,14 @@ var ToDoList = function (_React$Component) {
         'div',
         { className: 'to-do-app' },
         _react2.default.createElement(_ListForm2.default, {
-          createListItem: this.handleCreateListItem,
+          createListItem: this.handleCreateListItem.bind(this),
           ref: 'form'
         }),
         _react2.default.createElement(_ListModal2.default, {
           ref: 'modal',
           modalId: this.state.modal ? this.state.modal.id : 0,
           modalContent: this.state.modal ? this.state.modal.content : '',
-          confirmDelete: this.handleDeleteItem
+          confirmDelete: this.handleDeleteItem.bind(this)
         }),
         _react2.default.createElement(
           'div',
@@ -23447,11 +23442,6 @@ var ListItem = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this, props));
 
-    _this.handleItemCheck = _this.handleItemCheck.bind(_this);
-    _this.handleDeleteItemClick = _this.handleDeleteItemClick.bind(_this);
-    _this.handleEditContentChange = _this.handleEditContentChange.bind(_this);
-    _this.handleEditContent = _this.handleEditContent.bind(_this);
-    _this.handleHideEditForm = _this.handleHideEditForm.bind(_this);
     _this.state = { content: _this.props.children };
     return _this;
   }
@@ -23505,7 +23495,7 @@ var ListItem = function (_React$Component) {
           id: labelCheckId,
           className: "list-item-check",
           checked: this.props.checked,
-          onChange: this.handleItemCheck
+          onChange: this.handleItemCheck.bind(this)
         }),
         _react2.default.createElement("input", {
           type: "checkbox",
@@ -23526,16 +23516,16 @@ var ListItem = function (_React$Component) {
             name: "edit-content",
             id: "edit-content",
             value: this.state.content,
-            onChange: this.handleEditContentChange
+            onChange: this.handleEditContentChange.bind(this)
           }),
           _react2.default.createElement(
             "button",
-            { id: "confirm", onClick: this.handleEditContent },
+            { id: "confirm", onClick: this.handleEditContent.bind(this) },
             "OK"
           ),
           _react2.default.createElement(
             "button",
-            { id: "cancel", onClick: this.handleHideEditForm },
+            { id: "cancel", onClick: this.handleHideEditForm.bind(this) },
             "Cancel"
           )
         ),
@@ -23566,7 +23556,7 @@ var ListItem = function (_React$Component) {
           ),
           _react2.default.createElement(
             "button",
-            { id: "delete-btn", onClick: this.handleDeleteItemClick },
+            { id: "delete-btn", onClick: this.handleDeleteItemClick.bind(this) },
             _react2.default.createElement("span", null),
             _react2.default.createElement("span", null)
           )
@@ -23611,10 +23601,7 @@ var ListForm = function (_React$Component) {
   function ListForm(props) {
     _classCallCheck(this, ListForm);
 
-    var _this = _possibleConstructorReturn(this, (ListForm.__proto__ || Object.getPrototypeOf(ListForm)).call(this, props));
-
-    _this.handleCreateListItemEvent = _this.handleCreateListItemEvent.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (ListForm.__proto__ || Object.getPrototypeOf(ListForm)).call(this, props));
   }
 
   _createClass(ListForm, [{
@@ -23634,7 +23621,7 @@ var ListForm = function (_React$Component) {
         _react2.default.createElement('input', { ref: 'item-content', id: 'item-content' }),
         _react2.default.createElement(
           'button',
-          { onClick: this.handleCreateListItemEvent },
+          { onClick: this.handleCreateListItemEvent.bind(this) },
           _react2.default.createElement('img', { src: '/icon/plus-sign-light.png', alt: 'plus-sign' })
         )
       );
@@ -23680,8 +23667,6 @@ var ListModal = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ListModal.__proto__ || Object.getPrototypeOf(ListModal)).call(this, props));
 
     _this.open = _this.open.bind(_this);
-    _this.handleConfirmDelete = _this.handleConfirmDelete.bind(_this);
-    _this.handleCloseModal = _this.handleCloseModal.bind(_this);
     return _this;
   }
 
@@ -23734,12 +23719,12 @@ var ListModal = function (_React$Component) {
             { className: 'list-modal-btn-group' },
             _react2.default.createElement(
               'button',
-              { id: 'modal-confirm', onClick: this.handleConfirmDelete },
+              { id: 'modal-confirm', onClick: this.handleConfirmDelete.bind(this) },
               'Yes'
             ),
             _react2.default.createElement(
               'button',
-              { id: 'modal-cancel', onClick: this.handleCloseModal },
+              { id: 'modal-cancel', onClick: this.handleCloseModal.bind(this) },
               'No'
             )
           )

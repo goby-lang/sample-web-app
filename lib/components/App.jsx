@@ -18,11 +18,6 @@ export default class ToDoList extends React.Component {
       DELETE_LIST_ITEM: 6
     }
     this.state = { listItems: [] }
-    this.handleCreateListItem = this.handleCreateListItem.bind(this)
-    this.handleCheckEvent = this.handleCheckEvent.bind(this)
-    this.handleOpenModal = this.handleOpenModal.bind(this)
-    this.handleEditContent = this.handleEditContent.bind(this)
-    this.handleDeleteItem = this.handleDeleteItem.bind(this)
   }
 
   componentDidMount() {
@@ -149,23 +144,23 @@ export default class ToDoList extends React.Component {
       <ListItem
         key={item.key} id={item.key} ref={`list-item-${item.key}`}
         checked={item.checked}
-        checkEvent={this.handleCheckEvent}
-        openModal={this.handleOpenModal}
-        editContent={this.handleEditContent}
+        checkEvent={this.handleCheckEvent.bind(this)}
+        openModal={this.handleOpenModal.bind(this)}
+        editContent={this.handleEditContent.bind(this)}
       >{item.content}</ListItem>
     )
 
     return (
       <div className="to-do-app">
         <ListForm
-          createListItem={this.handleCreateListItem}
+          createListItem={this.handleCreateListItem.bind(this)}
           ref="form"
         />
         <ListModal
           ref="modal"
           modalId={this.state.modal ? this.state.modal.id : 0}
           modalContent={this.state.modal ? this.state.modal.content : ''}
-          confirmDelete={this.handleDeleteItem}
+          confirmDelete={this.handleDeleteItem.bind(this)}
         />
         <div className="list-group">
           {renderListItems}
