@@ -75,6 +75,8 @@ class ListItem
       yield({ error: 'Title cannot be empty' })
     elsif params[:title].empty?
       yield({ error: 'Title cannot be empty' })
+    elsif params[:title].include?('"')
+      yield({ error: 'Invalid title' })
     else
       if params[:title].length > 40
         yield({ error: 'Title too long (should less than 40 characters)' })
