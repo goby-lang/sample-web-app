@@ -1,0 +1,98 @@
+.list-modal-wrapper {
+  opacity: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: .25s;
+  pointer-events: none;
+}
+.list-modal-wrapper.open {
+  transition: .25s;
+  opacity: 1;
+  pointer-events: auto;
+}
+.list-modal-wrapper > .list-modal {
+  text-align: center;
+  position: absolute;
+  height: 175pt;
+  background-color:#F9DE7F;
+  color: #666;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group {
+  position: absolute;
+  height: 50pt;
+  bottom: 0;
+  padding-top: 10pt;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button {
+  vertical-align: bottom;
+  width: 75pt;
+  height: 30pt;
+  line-height: 30pt;
+  font-size: 15pt;
+  border: none;
+  color: white;
+  transition: .25s;
+  margin: 0 5pt;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm,
+.list-item > span#edit-form > button#confirm {
+  background-color: #79D1C3;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-confirm:hover,
+.list-item > span#edit-form > button#confirm:hover {
+  background-color: #67C0A1;
+  transition: .25s;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel,
+.list-item > span#edit-form > button#cancel {
+  background-color: #ff6a80;
+}
+.list-modal-wrapper > .list-modal > .list-modal-btn-group > button#modal-cancel:hover {
+  background-color: #dd4960;
+  transition: .25s;
+}
+
+@media screen and (max-width: 767px) {
+  .list-modal-wrapper > .list-modal {
+    width: 100%;
+  }
+  .list-modal-wrapper > .list-modal > .list-modal-btn-group {
+    width: 100%;
+  }
+  .list-modal-wrapper > .list-modal > h2 {
+    font-size: 16pt;
+  }
+  .list-modal-wrapper > .list-modal > h3 {
+    font-size: 14pt;
+  }
+  .list-modal-wrapper > .list-modal > .list-modal-btn-group > button {
+    font-size: 12pt;
+  }
+}
+@media screen and (min-width: 768px) {
+  .list-modal-wrapper > .list-modal {
+    width: 450pt;
+  }
+  .list-modal-wrapper > .list-modal > .list-modal-btn-group {
+    width: 450pt;
+  }
+  .list-modal-wrapper > .list-modal > h2 {
+    font-size: 20pt;
+  }
+  .list-modal-wrapper > .list-modal > h3 {
+    font-size: 18pt;
+  }
+  .list-modal-wrapper > .list-modal > .list-modal-btn-group > button {
+    font-size: 16pt;
+  }
+}
