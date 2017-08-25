@@ -35,7 +35,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .caption > h2 { font-size: 11pt; }
+  .caption > h2 { font-size: 9pt; }
 }
 @media screen and (min-width: 768px) {
   .caption > h2 { font-size: 16pt; }
