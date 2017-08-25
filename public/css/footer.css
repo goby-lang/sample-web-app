@@ -1,0 +1,57 @@
+footer {
+  height: 300pt;
+  width: 100%;
+  background-image: linear-gradient(
+    0deg,
+  rgba(126, 205, 255, 0.60),
+  rgba(204, 146, 255, 0.80));
+  text-align: center;
+}
+footer a {
+  text-decoration: none;
+  color: white;
+}
+footer h2 {
+  margin: 0;
+}
+footer img {
+  background-color: transparent;
+}
+footer > div#donate-section > h2 {
+  box-sizing: border-box;
+  line-height: 16pt;
+}
+footer > div#donate-section > a {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 45pt;
+  line-height: 45pt;
+  border-radius: 22.5pt;
+  background-color: #75cc1f;
+  transition: .25s;
+}
+footer > div#donate-section > a:hover {
+  background-color: #70E100;
+  transition: .25s;
+}
+
+@media screen and (max-width: 767px) {
+  footer > div#donate-section > a {
+    font-size: 12pt;
+    padding: 0 25pt
+  }
+  footer > div#donate-section > h2 {
+    font-size: 10pt;
+    padding: 30pt 20pt;
+  }
+}
+@media screen and (min-width: 768px) {
+  footer > div#donate-section > h2 {
+    font-size: 16pt;
+    padding: 30pt 0;
+  }
+  footer > div#donate-section > a {
+    font-size: 16pt;
+    padding: 0 40pt
+  }
+}
