@@ -5,6 +5,7 @@
   margin: 0;
   height: calc(65vh - 35pt);
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 ul#code-tab {
   background-color: #FBA86F;
