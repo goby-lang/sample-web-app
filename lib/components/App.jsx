@@ -131,8 +131,7 @@ export default class ToDoList extends React.Component {
     axios.get('items').then((response) => {
       let items = []
       let result = response.data.result;
-      for (var i = 0; i < result.length; i++) {
-        let item = result[i];
+      for (let item of result) {
         items.push({ key: item.id, content: item.title, checked: item.checked })
       }
       this.setState({ listItems: items })
