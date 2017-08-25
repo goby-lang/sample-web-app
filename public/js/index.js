@@ -10470,7 +10470,9 @@ var codeFiles = {
   'model-code': 'model.gb'
 };
 
-_axios2.default.all(Object.values(codeFiles).map(function (file) {
+_axios2.default.all(Object.keys(codeFiles).map(function (key) {
+  return codeFiles[key];
+}).map(function (file) {
   return _axios2.default.get(fileURL(file));
 })).then(function (responses) {
   var codes = responses.map(function (response) {
