@@ -1,86 +1,98 @@
 <!doctype html>
 <html lang="en" data-framework="react">
-	<head>
-		<meta charset="utf-8">
-		<meta property="og:url" content="http://sample.goby-lang.org" />
-		<meta property="og:title" content="The Goby Language" />
-		<meta property="og:description" content="Goby is an object-oriented interpreter language deeply inspired by Ruby as well as its core implementation by 100% pure Go, plus standard libraries to several features such as Plugin system." />
-		<meta property="og:image" content="https://i.imgur.com/6sv9sYG.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">		
-		<title>Goby Sample Web App</title>
-		<link rel="stylesheet" href="/css/index.css" />
-		<link rel="stylesheet" href="/css/caption.css" />
-		<link rel="stylesheet" href="/css/mc-embed-signup.css" />
-		<link rel="stylesheet" href="/css/navbar.css" />
-		<link rel="stylesheet" href="/css/code-tab.css" />
-		<link rel="stylesheet" href="/css/code-style/tomorrow-night-blue.css" id="code-style" />
-		<link rel="stylesheet" href="/css/list-modal.css" />
-		<script src="/js/index.js"></script>
-	</head>
-	<body>
-		<nav>
-			<div id="desktop-nav" class="nav-wrapper">
-				<a target="_blank" href="https://github.com/goby-lang/goby"><span>GitHub</span></a>
-				<a target="_blank" href="https://goby-lang.gitbooks.io/goby/content/"><span>GitBook</span></a>
-				<a id="logo-link" href="https://github.com/goby-lang/goby" target="_blank">
-					<img id="logo" src="./icon/goby-logo.svg" alt="Goby Lang Logo">
-				</a>
-				<a target="_blank" href="https://twitter.com/goby_lang"><span>Twitter</span></a>
-                                <a target="_blank" href="https://www.producthunt.com/posts/goby-language"><span>ProductHunt</span></a>	
-			</div>
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:url" content="http://sample.goby-lang.org" />
+    <meta property="og:title" content="The Goby Language" />
+    <meta property="og:description" content="Goby is an object-oriented interpreter language deeply inspired by Ruby as well as its core implementation by 100% pure Go, plus standard libraries to several features such as Plugin system." />
+    <meta property="og:image" content="https://i.imgur.com/6sv9sYG.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <title>Goby Sample Web App</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/caption.css" />
+    <link rel="stylesheet" href="/css/mc-embed-signup.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/code-tab.css" />
+    <link rel="stylesheet" href="/css/code-style/tomorrow-night-blue.css" id="code-style" />
+    <link rel="stylesheet" href="/css/list-modal.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <script src="/js/index.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div id="desktop-nav" class="nav-wrapper">
+        <a target="_blank" href="https://github.com/goby-lang/goby"><span>GitHub</span></a>
+        <a target="_blank" href="https://goby-lang.gitbooks.io/goby/content/"><span>GitBook</span></a>
+        <a id="logo-link" href="https://github.com/goby-lang/goby" target="_blank">
+          <img id="logo" src="./icon/goby-logo.svg" alt="Goby Lang Logo">
+        </a>
+        <a target="_blank" href="https://twitter.com/goby_lang"><span>Twitter</span></a>
+        <a target="_blank" href="https://www.producthunt.com/posts/goby-language"><span>ProductHunt</span></a>  
+      </div>
 
-			<div id="mobile-nav" class="nav-wrapper">
-				<a id="logo-link" href="https://github.com/goby-lang/goby" target="_blank">
-					<img id="logo" src="./icon/goby-logo.svg" alt="Goby Lang Logo">
-				</a>
-				<div class="nav-tabs">
-					<a target="_blank" href="https://github.com/goby-lang/goby"><span>GitHub</span></a>
-					<a target="_blank" href="https://goby-lang.gitbooks.io/goby/content/"><span>GitBook</span></a>
-					<a target="_blank" href="https://twitter.com/goby_lang"><span>Twitter</span></a>
-					<a target="_blank" href="https://www.producthunt.com/posts/goby-language"><span>ProductHunt</span></a>
-				</div>
-			</div>
-		</nav>
-		
-		<div class="caption">
-			<h2 id="caption-title">This Site Server is 100% Written In Goby!</h2>				
-			<h2 id="feature-title"><a href="https://goby-lang.gitbooks.io/goby/content/plugin-system.html">Check Out The Featured Plugin System</a></h2>				
-		</div>
+      <div id="mobile-nav" class="nav-wrapper">
+        <a id="logo-link" href="https://github.com/goby-lang/goby" target="_blank">
+          <img id="logo" src="./icon/goby-logo.svg" alt="Goby Lang Logo">
+        </a>
+        <div class="nav-tabs">
+          <a target="_blank" href="https://github.com/goby-lang/goby"><span>GitHub</span></a>
+          <a target="_blank" href="https://goby-lang.gitbooks.io/goby/content/"><span>GitBook</span></a>
+          <a target="_blank" href="https://twitter.com/goby_lang"><span>Twitter</span></a>
+          <a target="_blank" href="https://www.producthunt.com/posts/goby-language"><span>ProductHunt</span></a>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="caption">
+      <h2 id="caption-title">This Site's Server is 100% Written In Goby!</h2>        
+      <h2 id="feature-title"><a href="https://goby-lang.gitbooks.io/goby/content/plugin-system.html">Check Out The Featured Plugin System</a></h2>        
+    </div>
 
-		<!-- Begin MailChimp Signup Form -->
-		<div id="mc_embed_signup">
-			<form action="//github.us16.list-manage.com/subscribe/post?u=46a13f2310955e2d78490146e&amp;id=131ed10815" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-				<div id="mc_embed_signup_scroll">
-					<h2>Goby - Inherits from Ruby, extended with Golang</h2>
-					<h4>Stay up to date on Goby's news</h4>
-					<input type="email" value="" name="EMAIL" placeholder="Enter Your Email Address" class="required email" id="mce-EMAIL">
-					<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_46a13f2310955e2d78490146e_131ed10815" tabindex="-1" value=""></div>
-					<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
-				</div>
-			</form>
-		</div>	
-		<!--End mc_embed_signup-->
+    <!-- Begin MailChimp Signup Form -->
+    <div id="mc_embed_signup">
+      <form action="//github.us16.list-manage.com/subscribe/post?u=46a13f2310955e2d78490146e&amp;id=131ed10815" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <h2>Goby - Inherits from Ruby, extended with Golang</h2>
+          <h4>Stay up to date on Goby's news</h4>
+          <input type="email" value="" name="EMAIL" placeholder="Enter Your Email Address" class="required email" id="mce-EMAIL">
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_46a13f2310955e2d78490146e_131ed10815" tabindex="-1" value=""></div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+        </div>
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
 
-		<div class="wrapper">
-			<div id="app" class="inner-wrapper"></div>
-			<div id="goby-lang" class="inner-wrapper">
-				<ul id="code-tab">
-					<li id="server-code" class="active">server.gb</li>
-					<li id="model-code">model.gb</li>
-				</ul>
-				<pre><code class="ruby" id="render-code"></code></pre>
-			</div>
-		</div>
+    <div class="wrapper">
+      <div id="app" class="inner-wrapper"></div>
+      <div id="goby-lang" class="inner-wrapper">
+        <ul id="code-tab">
+          <li id="server-code" class="active">server.gb</li>
+          <li id="model-code">model.gb</li>
+        </ul>
+        <pre><code class="ruby" id="render-code"></code></pre>
+      </div>
+    </div>
 
-		<!-- Google Analytics -->
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <div class="caption">
+      <h2 id="cdn-title"><a href="https://www.keycdn.com" target="_blank">Accelerated by KeyCDN</a></h2>  
+    </div>
 
-			ga('create', 'UA-47510815-13', 'auto');
-			ga('send', 'pageview');
-		</script>
-	</body>
+    <footer>
+      <div id="donate-section">
+        <h2>Support us with a monthly donation and help us continue our activities.</h2>
+        <a href="https://opencollective.com/goby" target="_blank">Become a Backer!</a>
+      </div>
+    </footer>
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-47510815-13', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
 </html>

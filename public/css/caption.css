@@ -25,6 +25,14 @@
   background-color: rgba(183, 46, 255, 0.3);
   transition: .25s;
 }
+.caption > h2#cdn-title {
+  margin-top: 75pt;
+  background-image: linear-gradient(310deg, rgba(61, 164, 255, 0.65), rgba(222, 126, 255, 0.80));
+}
+.caption > h2#cdn-title:hover > a {
+  background-color: rgba(61, 164, 255, 0.3);
+  transition: .25s;
+}
 
 @media screen and (max-width: 767px) {
   .caption > h2 { font-size: 11pt; }

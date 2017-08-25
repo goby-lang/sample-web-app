@@ -52,7 +52,7 @@ nav > #mobile-nav.nav-wrapper > div.nav-tabs {
 nav > #mobile-nav.nav-wrapper > div.nav-tabs > a > span {
   padding: 1.5vh 2vw;
   transition: .25s;
-  font-size: 12pt;
+  font-size: 10pt;
 }
 nav > #mobile-nav.nav-wrapper > div.nav-tabs > a:hover > span {
   background-color: rgba(255, 158, 102, 0.69);

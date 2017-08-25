@@ -15,7 +15,6 @@ html, body {
   list-style-type: none;
   font-family: 'Quicksand', sans-serif;
   width: 100vw;
-  height: 180vh;
   background-image: linear-gradient(45deg,#FF903E,#FFF5CE);
   color: white;
   overflow: auto;
@@ -34,10 +33,8 @@ a { text-decoration: none; }
 .to-do-app {
   width: 85%;
   margin: 0 auto;
-  max-height: 65vh;
+  max-height: calc(65vh - 6pt);
   box-sizing: border-box;
-}
-.to-do-app {
   box-shadow: 4pt 4pt 0pt rgba(247, 255, 160, 0.5),
               8pt 8pt 0pt rgba(255, 194, 79, 0.65),
               12pt 12pt 0pt rgba(255, 170, 0, 0.8);
@@ -91,7 +88,7 @@ a { text-decoration: none; }
 .list-group {
   background-color: #eea;
   color: #666;
-  max-height: calc(65vh - 40pt);
+  max-height: calc(65vh - 46pt);
   overflow: auto;
   /* box-shadow: inset 0pt 5pt 10pt #444; */
   position: relative;
