@@ -1,8 +1,5 @@
 #goby-lang {
   height: 75vh;
-  width: 85%;
-  margin-left: auto;
-  margin-right: auto;
 }
 #goby-lang > pre {
   margin: 0;
