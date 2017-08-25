@@ -34,7 +34,7 @@ export default class ListForm extends React.Component {
   validates(value, success, error) {
     if (value === '') {
       error('Title cannot be empty!')
-    } else if (/\"/.test(value)) {
+    } else if (/\"/.test(value) || /\\/.test(value)) {
       error('Wrong title format!')
     } else if (value.length > 40) {
       error('Maximum length: 40 characters')
