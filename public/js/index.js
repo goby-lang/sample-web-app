@@ -10523,19 +10523,6 @@ _axios2.default.all(Object.keys(codeFiles).map(function (key) {
     }
   }
 });
-// getCodeContent('server').then((response) => {
-//   let code = atob(response.data.content)
-//   const $codeBlock = document.getElementById('render-code')
-//   const $style = document.getElementById('code-style')
-
-//   $codeBlock.innerText = code
-//   hljs.highlightBlock($codeBlock)
-
-// Change Style
-// setTimeout(() => {
-//   $style.href = '/css/tomorrow-night-blue.css'
-// }, 5000)
-// })
 
 window.addEventListener('load', function () {
   _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
@@ -23660,7 +23647,7 @@ var ListForm = function (_React$Component) {
     value: function validates(value, success, error) {
       if (value === '') {
         error('Title cannot be empty!');
-      } else if (/\"/.test(value)) {
+      } else if (/\"/.test(value) || /\\/.test(value)) {
         error('Wrong title format!');
       } else if (value.length > 40) {
         error('Maximum length: 40 characters');
