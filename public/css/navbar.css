@@ -6,7 +6,7 @@ nav {
 nav > .nav-wrapper a {
   text-decoration: none;
   font-family: 'Hero', sans-serif;
-  color: white;
+  color: #F88B40;
 }
 nav > .nav-wrapper > a:hover > img#logo {
   border-radius: 50%;
@@ -30,6 +30,7 @@ nav > #desktop-nav.nav-wrapper > a:not(#logo-link) > span {
 }
 nav > #desktop-nav.nav-wrapper > a:not(#logo-link):hover > span {
   background-color: rgba(255, 158, 102, 0.69);
+  color: white;
   border-radius: 50%;
   transition: .25s;
 }
