@@ -1,10 +1,23 @@
-require "db"
-
 db_user = ENV["POSTGRES_USER"] || "postgres"
 db_name = ENV["POSTGRES_DB"]   || "goby_test"
 db_host = ENV["POSTGRES_HOST"] || "0.0.0.0"
 
-PG = DB.open("postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
+require "plugin"
+
+plugin = Plugin.generate("db") do |p|
+  p.import_pkg("", "database/sql")
+  p.import_pkg("_", "github.com/lib/pq")
+  p.link_function("sql", "Open")
+end
+
+conn, err = plugin.go_func("Open", "postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
+
+if err
+  puts(err.go_func("Error"))
+  return nil
+end
+
+PG = conn
 
 PG.run("create table if not exists list_items (
   id      serial primary key,
