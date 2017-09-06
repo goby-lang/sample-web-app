@@ -1,4 +1,4 @@
-FROM gobylang/goby:latest
+FROM gobylang/goby:v0.1.2
 
 ADD . ./
 
