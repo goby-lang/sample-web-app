@@ -1,4 +1,7 @@
-FROM gobylang/goby:v0.1.2
+FROM gobylang/goby:latest
+
+RUN go get github.com/jmoiron/sqlx
+RUN go get github.com/lib/pq
 
 ADD . ./
 
