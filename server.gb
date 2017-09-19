@@ -1,5 +1,4 @@
 require "net/simple_server"
-require "file"
 require "json"
 require_relative "model"
 server = Net::SimpleServer.new("3000")
