@@ -1,0 +1,62 @@
+require "plugin"
+
+# Create the plugin
+plugin = Plugin.generate("db") do |p|
+  p.import_pkg("", "github.com/jmoiron/sqlx")
+  p.import_pkg("_", "github.com/lib/pq")
+  p.link_function("sqlx", "Open")
+end
+
+# Some PG settings
+db_user = ENV["POSTGRES_USER"] || "postgres"
+db_name = ENV["POSTGRES_DB"]   || "goby_test"
+db_host = ENV["POSTGRES_HOST"] || "0.0.0.0"
+
+# Open PG connection using sqlx package's Open function
+conn, err = plugin.go_func("Open", "postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
+
+if err
+  puts(err.go_func("Error"))
+  return nil
+end
+
+class PluginDB
+  def initialize(conn)
+    @conn = conn
+  end
+
+  def run(query, *args)
+    r, err = @conn.go_func("Exec", query, *args)
+
+    if err != nil
+      puts(err.go_func("Error"))
+    end
+  end
+
+  def exec(query, *args)
+    id = 0
+    err = @conn.go_func("QueryRow", String.fmt("%s RETURNING id", query), *args).go_func("Scan", id.ptr)
+
+    if err != nil
+      puts(err.go_func("Error"))
+    else
+      id
+    end
+  end
+
+  def query(query, *args)
+    rows, err = @conn.go_func("Queryx", query, *args)
+
+    results = []
+
+    while rows.go_func("Next") do
+      row = GoMap.new
+      rows.go_func("MapScan", row)
+      results.push(row.to_hash)
+    end
+
+    results
+  end
+end
+
+PluginPG = PluginDB.new(conn)

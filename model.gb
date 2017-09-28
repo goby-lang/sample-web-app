@@ -1,60 +1,4 @@
-require "db"
-require "plugin"
-
-db_user = ENV["POSTGRES_USER"] || "postgres"
-db_name = ENV["POSTGRES_DB"]   || "goby_test"
-db_host = ENV["POSTGRES_HOST"] || "0.0.0.0"
-
-PG = DB.open("postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
-
-plugin = Plugin.generate("db") do |p|
-  p.import_pkg("", "github.com/jmoiron/sqlx")
-  p.import_pkg("_", "github.com/lib/pq")
-  p.link_function("sqlx", "Open")
-end
-
-conn, err = plugin.go_func("Open", "postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
-
-if err
-  puts(err.go_func("Error"))
-  return nil
-end
-
-class PluginDB
-  def initialize(conn)
-    @conn = conn
-  end
-
-  def run(query, *args)
-    r, err = @conn.go_func("Exec", query, *args)
-
-    if err != nil
-      puts(err.go_func("Error"))
-    end
-  end
-
-  def exec(query, *args)
-    id = 0
-    err = @conn.go_func("QueryRow", String.fmt("%s RETURNING id", query), *args).go_func("Scan", id.ptr)
-
-    if err != nil
-      puts(err.go_func("Error"))
-    else
-      id
-    end
-  end
-
-#   def query(query, *args)
-#     rows, err = conn.go_func("Queryx", query, *args)
-
-#     while rows.go_func("Next") do
-
-#     end
-#   end
-end
-
-PluginPG = PluginDB.new(conn)
-
+require_relative "./plugin_pg"
 
 PluginPG.run("create table if not exists list_items (
   id      serial primary key,
@@ -100,11 +44,11 @@ class ListItem
   end
 
   def self.all
-    PG.query("SELECT * FROM list_items ORDER BY id DESC")
+    plugin_db.query("SELECT * FROM list_items ORDER BY id DESC")
   end
 
   def self.find(id)
-    result = PG.query("SELECT * FROM list_items WHERE id = $1", id).first
+    result = plugin_db.query("SELECT * FROM list_items WHERE id = $1", id).first
     if result
       new({ id: result[:id], title: result[:title], checked: result[:checked] })
     end
