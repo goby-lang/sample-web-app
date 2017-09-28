@@ -10467,7 +10467,8 @@ var styleURL = function styleURL(style) {
 
 var codeFiles = {
   'server-code': 'server.gb',
-  'model-code': 'model.gb'
+  'model-code': 'model.gb',
+  'db-code': 'plugin_pg.gb'
 };
 
 _axios2.default.all(Object.keys(codeFiles).map(function (key) {
@@ -10483,7 +10484,8 @@ _axios2.default.all(Object.keys(codeFiles).map(function (key) {
 
   var codeObj = {
     'server-code': codes[0],
-    'model-code': codes[1]
+    'model-code': codes[1],
+    'db-code': codes[2]
   };
 
   $codeBlock.innerText = codes[0];
