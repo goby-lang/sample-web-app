@@ -1,4 +1,4 @@
-require_relative "./plugin_pg"
+require_relative "plugin"
 
 PluginPG.run("create table if not exists list_items (
   id      serial primary key,
