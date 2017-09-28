@@ -1,12 +1,6 @@
-require "db"
+require_relative "./plugin_pg"
 
-db_user = ENV["POSTGRES_USER"] || "postgres"
-db_name = ENV["POSTGRES_DB"]   || "goby_test"
-db_host = ENV["POSTGRES_HOST"] || "0.0.0.0"
-
-PG = DB.open("postgres", String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host))
-
-PG.run("create table if not exists list_items (
+PluginPG.run("create table if not exists list_items (
   id      serial primary key,
   title   varchar(40),
   checked boolean
@@ -23,37 +17,38 @@ class ListItem
   end
 
   def check
-    ListItem.db.exec('UPDATE list_items SET checked = true WHERE id = $1', @id)
+    self.class.plugin_db.exec('UPDATE list_items SET checked = true WHERE id = $1', @id)
     @checked = true
   end
 
   def uncheck
-    ListItem.db.exec('UPDATE list_items SET checked = false WHERE id = $1', @id)
+    self.class.plugin_db.exec('UPDATE list_items SET checked = false WHERE id = $1', @id)
     @checked = false
   end
 
   def update_title(title)
-    ListItem.db.exec('UPDATE list_items SET title = $1 WHERE id = $2', title, @id)
+    self.class.plugin_db.exec('UPDATE list_items SET title = $1 WHERE id = $2', title, @id)
   end
 
   def destroy
-    ListItem.db.exec('DELETE FROM list_items WHERE id = $1', @id)
+    self.class.plugin_db.exec('DELETE FROM list_items WHERE id = $1', @id)
   end
 
   def valid?
     @error.nil?
   end
 
-  def self.db
-    PG
+
+  def self.plugin_db
+    PluginPG
   end
 
   def self.all
-    self.db.query("SELECT * FROM list_items ORDER BY id DESC")
+    plugin_db.query("SELECT * FROM list_items ORDER BY id DESC")
   end
 
   def self.find(id)
-    result = self.db.query("SELECT * FROM list_items WHERE id = $1", id).first
+    result = plugin_db.query("SELECT * FROM list_items WHERE id = $1", id).first
     if result
       new({ id: result[:id], title: result[:title], checked: result[:checked] })
     end
@@ -64,7 +59,7 @@ class ListItem
       if result[:error].nil?
         title   = params[:title]
         checked = params[:checked].to_i == 1
-        resultID = self.db.exec("INSERT INTO list_items (title, checked) VALUES ($1, $2)", title, checked)
+        resultID = self.plugin_db.exec("INSERT INTO list_items (title, checked) VALUES ($1, $2)", title, checked)
         new({ id: resultID, title: title, checked: checked })
       else
         new({ error: result[:error] })

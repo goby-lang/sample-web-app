@@ -1,0 +1,20 @@
+# docker-compose up
+
+version: '3'
+services:
+  web:
+    environment:
+      - POSTGRES_HOST=postgres
+    image: 'gobylang/todo-sample:latest'
+    links:
+      - postgres
+    ports:
+      - 3000:3000
+  postgres:
+    environment:
+      - POSTGRES_DB=goby_test
+      - POSTGRES_USER=postgres
+    image: 'postgres:latest'
+    ports:
+      - '5432'
+

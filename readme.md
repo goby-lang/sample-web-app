@@ -4,9 +4,9 @@
 
 ## Requirement
 
-- NodeJS & Yarn
-- Goby
-- PostgresDB
+- Docker
+- Docker compose
+
 ## Usage
 
 Clone it!
@@ -15,10 +15,10 @@ Clone it!
 $ git clone git@github.com:goby-lang/sample-web-app.git
 ```
 
-Go into the project directory, then open another terminal and run the command:
+Go into the project directory and run the command:
 
 ```
-$ goby server.gb
+$ docker-compose up
 ```
 
 Open `http://localhost:3000` and enjoy!
