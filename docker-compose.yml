@@ -14,7 +14,7 @@ services:
     environment:
       - POSTGRES_DB=goby_test
       - POSTGRES_USER=postgres
-    image: 'postgres:latest'
+    image: 'postgres:9.3.17'
     ports:
       - '5432'
 
