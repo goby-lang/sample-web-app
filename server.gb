@@ -1,7 +1,8 @@
 require "net/simple_server"
 require "json"
 require_relative "model"
-server = Net::SimpleServer.new("3000")
+
+server = Net::SimpleServer.new(ENV["PORT"] || "3000")
 
 server.static("/icon/", "./public/icon/")
 server.static("/js/", "./public/js/")
