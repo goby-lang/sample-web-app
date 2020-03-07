@@ -1,6 +1,19 @@
-require_relative "plugin"
+require "db"
 
-PluginPG.run("create table if not exists list_items (
+# Some PG settings
+db_user = ENV["POSTGRES_USER"] || "postgres"
+db_name = ENV["POSTGRES_DB"]   || "goby_test"
+db_host = ENV["POSTGRES_HOST"] || "0.0.0.0"
+
+pg_host = ENV["DATABASE_URL"]
+
+if pg_host.nil?
+  pg_host = String.fmt("user=%s dbname=%s host=%s sslmode=disable", db_user, db_name, db_host)
+end
+
+PG = DB.open("postgres", pg_host)
+
+PG.run("create table if not exists list_items (
   id      serial primary key,
   title   varchar(40),
   checked boolean
@@ -40,7 +53,7 @@ class ListItem
 
 
   def self.plugin_db
-    PluginPG
+    PG
   end
 
   def self.all
