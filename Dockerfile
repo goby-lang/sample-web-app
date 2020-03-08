@@ -1,3 +1,3 @@
-FROM gobylang/goby:v0.1.12
+FROM gobylang/goby:latest
 
 ADD . ./
