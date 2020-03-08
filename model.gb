@@ -30,38 +30,41 @@ class ListItem
   end
 
   def check
-    self.class.plugin_db.exec('UPDATE list_items SET checked = true WHERE id = $1', @id)
+    db.exec('UPDATE list_items SET checked = true WHERE id = $1', @id)
     @checked = true
   end
 
   def uncheck
-    self.class.plugin_db.exec('UPDATE list_items SET checked = false WHERE id = $1', @id)
+    db.exec('UPDATE list_items SET checked = false WHERE id = $1', @id)
     @checked = false
   end
 
   def update_title(title)
-    self.class.plugin_db.exec('UPDATE list_items SET title = $1 WHERE id = $2', title, @id)
+    db.exec('UPDATE list_items SET title = $1 WHERE id = $2', title, @id)
   end
 
   def destroy
-    self.class.plugin_db.exec('DELETE FROM list_items WHERE id = $1', @id)
+    db.exec('DELETE FROM list_items WHERE id = $1', @id)
   end
 
   def valid?
     @error.nil?
   end
 
+  def db
+    self.class.db
+  end
 
-  def self.plugin_db
+  def self.db
     PG
   end
 
   def self.all
-    plugin_db.query("SELECT * FROM list_items ORDER BY id DESC")
+    db.query("SELECT * FROM list_items ORDER BY id DESC")
   end
 
   def self.find(id)
-    result = plugin_db.query("SELECT * FROM list_items WHERE id = $1", id).first
+    result = db.query("SELECT * FROM list_items WHERE id = $1", id).first
     if result
       new({ id: result[:id], title: result[:title], checked: result[:checked] })
     end
@@ -72,7 +75,7 @@ class ListItem
       if result[:error].nil?
         title   = params[:title]
         checked = params[:checked].to_i == 1
-        resultID = self.plugin_db.exec("INSERT INTO list_items (title, checked) VALUES ($1, $2)", title, checked)
+        resultID = db.exec("INSERT INTO list_items (title, checked) VALUES ($1, $2)", title, checked)
         new({ id: resultID, title: title, checked: checked })
       else
         new({ error: result[:error] })
