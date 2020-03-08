@@ -10,6 +10,8 @@ services:
       - postgres
     ports:
       - 3000:3000
+    command: goby server.gb --bind 0.0.0.0:3000 wsgi
+
   postgres:
     environment:
       - POSTGRES_DB=goby_test
