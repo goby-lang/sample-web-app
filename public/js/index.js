@@ -10452,8 +10452,7 @@ var styleURL = function styleURL(style) {
 
 var codeFiles = {
   'server-code': 'server.gb',
-  'model-code': 'model.gb',
-  'db-code': 'plugin.gb'
+  'model-code': 'model.gb'
 };
 
 _axios2.default.all(Object.keys(codeFiles).map(function (key) {
