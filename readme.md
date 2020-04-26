@@ -23,6 +23,11 @@ $ docker-compose up
 
 Open `http://localhost:3000` and enjoy!
 
+## Frontend
+
+- Start server - `$ yarn start`
+- Rebuild index.js - `$ webpack`
+
 ## Contributors
 
 - Creator of Goby @st0012
