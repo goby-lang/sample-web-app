@@ -5,7 +5,7 @@
   "engines" : { "node" : ">= 10.0" },
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "highlight-lite": "^9.4.0",
     "path": "^0.12.7",
     "react": "^15.6.1",
